@@ -21,4 +21,12 @@ class VoiceNoteScannerTest {
         assertNull(VoiceNoteScanner.parseDurationToSeconds("ab:cd"))
         assertNull(VoiceNoteScanner.parseDurationToSeconds(""))
     }
+
+    @Test
+    fun extractDurationSeconds_tests() {
+        assertEquals(83L, VoiceNoteScanner.extractDurationSeconds("01:23?tr"))
+        assertEquals(83L, VoiceNoteScanner.extractDurationSeconds("transcribe 01:23 ?tr"))
+        assertEquals(45L, VoiceNoteScanner.extractDurationSeconds("?tr 0:45"))
+        assertNull(VoiceNoteScanner.extractDurationSeconds("no duration ?tr"))
+    }
 }

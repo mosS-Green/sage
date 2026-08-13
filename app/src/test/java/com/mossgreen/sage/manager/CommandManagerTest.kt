@@ -90,17 +90,17 @@ class CommandManagerTest {
     // --- getCommands ---
 
     @Test
-    fun getCommands_returnsFifteenBuiltInByDefault() {
+    fun getCommands_returnsSixteenBuiltInByDefault() {
         val commands = commandManager.getCommands()
-        assertEquals(15, commands.size)
+        assertEquals(16, commands.size)
     }
 
     @Test
     fun getCommands_systemCommandsHaveIsBuiltInTrue() {
         val commands = commandManager.getCommands()
-        val systemTriggers = listOf("?undo", "?copy", "?cut", "?paste", "?replace", "?yt")
+        val systemTriggers = listOf("?undo", "?copy", "?cut", "?paste", "?replace", "?yt", "?tr")
         val systemCommands = commands.filter { it.trigger in systemTriggers }
-        assertEquals(6, systemCommands.size)
+        assertEquals(7, systemCommands.size)
         assertTrue(systemCommands.all { it.isBuiltIn })
     }
 
@@ -117,7 +117,7 @@ class CommandManagerTest {
     fun getCommands_afterAddingCustom_includesIt() {
         commandManager.saveCustomCommand(Command("?myCmd", "do something"))
         val commands = commandManager.getCommands()
-        assertEquals(16, commands.size)
+        assertEquals(17, commands.size)
         assertTrue(commands.any { it.trigger == "?myCmd" })
     }
 
@@ -354,5 +354,16 @@ class CommandManagerTest {
         assertTrue(commandManager.setTriggerPrefix("/"))
         assertNotNull(commandManager.findCommand("hello /copy"))
         assertNull(commandManager.findCommand("hello ?copy"))
+    }
+
+    @Test
+    fun findCommand_matchesTranscriptionCommands() {
+        val cmdAfter = commandManager.findCommand("some text ?tr 01:23")
+        assertNotNull(cmdAfter)
+        assertTrue(cmdAfter!!.trigger.contains("tr"))
+
+        val cmdBefore = commandManager.findCommand("01:23?tr")
+        assertNotNull(cmdBefore)
+        assertEquals("?tr", cmdBefore!!.trigger)
     }
 }

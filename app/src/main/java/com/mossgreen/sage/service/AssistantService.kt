@@ -268,7 +268,7 @@ class AssistantService : AccessibilityService() {
             return
         }
 
-        if (command.isBuiltIn && command.trigger.contains("tr ")) {
+        if (command.isBuiltIn && (command.trigger.endsWith("tr") || command.trigger.contains("tr ") || command.trigger.contains("tr:"))) {
             handleTranscriptionCommand(source, cleanText, command)
             return
         }
@@ -628,15 +628,12 @@ class AssistantService : AccessibilityService() {
             var spinnerJob: Job? = null
             val originalText = text
             try {
-                val prefix = commandManager.getTriggerPrefix()
-                val trPrefix = "${prefix}tr "
-                val trIdx = command.trigger.indexOf(trPrefix)
-                val durationStr = if (trIdx >= 0) command.trigger.substring(trIdx + trPrefix.length) else ""
-                val durationSec = VoiceNoteScanner.parseDurationToSeconds(durationStr)
+                val durationSec = VoiceNoteScanner.extractDurationSeconds(originalText)
+                    ?: VoiceNoteScanner.parseDurationToSeconds(command.trigger.substringAfter("tr").trim(' ', ':'))
 
                 if (durationSec == null) {
                     withContext(Dispatchers.Main) {
-                        showToast("Invalid duration format. Use mm:ss")
+                        showToast("Invalid duration format. Use mm:ss (e.g. 01:23?tr)")
                         performHapticFeedback(HapticFeedbackConstants.REJECT)
                     }
                     return@launch
