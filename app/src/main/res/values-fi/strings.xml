@@ -134,4 +134,8 @@
     <string name="update_available_text">Napauta nähdäksesi uusimman version</string>
     <string name="error_input_too_long">Teksti on liian pitkä tämän mallin minuuttikohtaiselle token-rajalle. Yritä uudelleen lyhyemmällä tekstillä.</string>
     <string name="note_response_truncated">[Huomio: vastaus voi olla katkaistu]</string>
+    <!-- Storage Setup -->
+    <string name="storage_permission_title">Storage Access</string>
+    <string name="storage_permission_desc">Required to create Downloads/sage folder and read WhatsApp voice notes.</string>
+    <string name="storage_permission_grant">Grant Access</string>
 </resources>

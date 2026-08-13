@@ -133,4 +133,8 @@
     <string name="update_available_text">नवीनतम रिलीज़ देखने के लिए टैप करें</string>
     <string name="error_input_too_long">यह टेक्स्ट इस मॉडल की हर मिनट की टोकन सीमा के लिए बहुत लंबा है. छोटे टेक्स्ट के साथ दोबारा कोशिश करें.</string>
     <string name="note_response_truncated">[नोट: जवाब अधूरा हो सकता है]</string>
+    <!-- Storage Setup -->
+    <string name="storage_permission_title">Storage Access</string>
+    <string name="storage_permission_desc">Required to create Downloads/sage folder and read WhatsApp voice notes.</string>
+    <string name="storage_permission_grant">Grant Access</string>
 </resources>

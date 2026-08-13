@@ -133,4 +133,8 @@
     <string name="update_available_text">Toca para ver la última versión</string>
     <string name="error_input_too_long">El texto es demasiado largo para el límite de tokens por minuto de este modelo. Vuelve a intentarlo con un texto más corto.</string>
     <string name="note_response_truncated">[Nota: la respuesta puede estar cortada]</string>
+    <!-- Storage Setup -->
+    <string name="storage_permission_title">Storage Access</string>
+    <string name="storage_permission_desc">Required to create Downloads/sage folder and read WhatsApp voice notes.</string>
+    <string name="storage_permission_grant">Grant Access</string>
 </resources>

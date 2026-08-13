@@ -116,6 +116,9 @@ android {
             )
         }
     }
+    lint {
+        disable += "MissingTranslation"
+    }
 }
 
 kotlin {

@@ -134,4 +134,8 @@
     <string name="update_available_text">הקש כדי להציג את המהדורה האחרונה</string>
     <string name="error_input_too_long">הטקסט ארוך מדי עבור מגבלת הטוקנים לדקה של המודל הזה. נסה שוב עם טקסט קצר יותר.</string>
     <string name="note_response_truncated">[הערה: התשובה עשויה להיות קטועה]</string>
+    <!-- Storage Setup -->
+    <string name="storage_permission_title">Storage Access</string>
+    <string name="storage_permission_desc">Required to create Downloads/sage folder and read WhatsApp voice notes.</string>
+    <string name="storage_permission_grant">Grant Access</string>
 </resources>

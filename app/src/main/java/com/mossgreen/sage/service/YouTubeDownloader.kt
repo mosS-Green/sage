@@ -86,12 +86,12 @@ object YouTubeDownloader {
 
         val status = json.optString("status")
         if (status == "redirect" || status == "tunnel") {
-            return json.optString("url", null)
+            return json.optString("url").takeIf { it.isNotEmpty() }
         } else if (status == "picker") {
             val pickerArray = json.optJSONArray("picker")
             if (pickerArray != null && pickerArray.length() > 0) {
                 val item = pickerArray.getJSONObject(0)
-                return item.optString("url", null)
+                return item.optString("url").takeIf { it.isNotEmpty() }
             }
         }
 

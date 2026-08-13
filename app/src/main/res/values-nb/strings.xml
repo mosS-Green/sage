@@ -134,4 +134,8 @@
     <string name="update_available_text">Trykk for å se den nyeste utgivelsen</string>
     <string name="error_input_too_long">Teksten er for lang for denne modellens tokengrense per minutt. Prøv igjen med kortere tekst.</string>
     <string name="note_response_truncated">[Merk: svaret kan være avkuttet]</string>
+    <!-- Storage Setup -->
+    <string name="storage_permission_title">Storage Access</string>
+    <string name="storage_permission_desc">Required to create Downloads/sage folder and read WhatsApp voice notes.</string>
+    <string name="storage_permission_grant">Grant Access</string>
 </resources>

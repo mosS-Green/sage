@@ -134,4 +134,8 @@
     <string name="update_available_text">Tapnite za ogled najnovejše različice</string>
     <string name="error_input_too_long">Besedilo je predolgo za omejitev žetonov na minuto tega modela. Poskusite znova s krajšim besedilom.</string>
     <string name="note_response_truncated">[Opomba: odgovor je morda skrajšan]</string>
+    <!-- Storage Setup -->
+    <string name="storage_permission_title">Storage Access</string>
+    <string name="storage_permission_desc">Required to create Downloads/sage folder and read WhatsApp voice notes.</string>
+    <string name="storage_permission_grant">Grant Access</string>
 </resources>

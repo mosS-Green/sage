@@ -565,13 +565,14 @@ class AssistantService : AccessibilityService() {
                     return@launch
                 }
 
-                spinnerJob = startInlineSpinner(source, originalText)
+                val spinner = startInlineSpinner(source, originalText)
+                spinnerJob = spinner
 
                 val downloadResult = withContext(Dispatchers.IO) {
                     YouTubeDownloader.download(ytUrl)
                 }
 
-                spinnerJob?.cancelAndJoin()
+                spinner.cancelAndJoin()
                 spinnerJob = null
 
                 if (downloadResult.isSuccess) {
@@ -661,11 +662,12 @@ class AssistantService : AccessibilityService() {
                     return@launch
                 }
 
-                spinnerJob = startInlineSpinner(source, originalText)
+                val spinner = startInlineSpinner(source, originalText)
+                spinnerJob = spinner
 
                 val transcribeResult = AudioTranscriber.transcribe(targetFile, keyManager)
 
-                spinnerJob?.cancelAndJoin()
+                spinner.cancelAndJoin()
                 spinnerJob = null
 
                 if (transcribeResult.isSuccess) {

@@ -136,4 +136,8 @@
     <!-- Command descriptions -->
     <string name="error_input_too_long">Text je příliš dlouhý pro limit tokenů za minutu tohoto modelu. Zkuste to znovu s kratším textem.</string>
     <string name="note_response_truncated">[Poznámka: odpověď může být zkrácena]</string>
+    <!-- Storage Setup -->
+    <string name="storage_permission_title">Storage Access</string>
+    <string name="storage_permission_desc">Required to create Downloads/sage folder and read WhatsApp voice notes.</string>
+    <string name="storage_permission_grant">Grant Access</string>
 </resources>

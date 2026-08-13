@@ -134,4 +134,8 @@
     <string name="update_available_text">Atinge pentru a vedea cea mai recentă versiune</string>
     <string name="error_input_too_long">Textul este prea lung pentru limita de tokenuri pe minut a acestui model. Încearcă din nou cu un text mai scurt.</string>
     <string name="note_response_truncated">[Notă: răspunsul poate fi trunchiat]</string>
+    <!-- Storage Setup -->
+    <string name="storage_permission_title">Storage Access</string>
+    <string name="storage_permission_desc">Required to create Downloads/sage folder and read WhatsApp voice notes.</string>
+    <string name="storage_permission_grant">Grant Access</string>
 </resources>

@@ -6,12 +6,17 @@ import java.io.File
 
 object VoiceNoteScanner {
 
-    private val WHATSAPP_VN_PATHS = listOf(
-        File(Environment.getExternalStorageDirectory(), "Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Voice Notes"),
-        File(Environment.getExternalStorageDirectory(), "WhatsApp/Media/WhatsApp Voice Notes")
-    )
-
     private val AUDIO_EXTENSIONS = setOf("opus", "m4a", "aac", "mp3", "ogg", "wav", "3gp")
+
+    private fun getWhatsAppVoiceNotePaths(): List<File> = try {
+        val root = Environment.getExternalStorageDirectory()
+        listOf(
+            File(root, "Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Voice Notes"),
+            File(root, "WhatsApp/Media/WhatsApp Voice Notes")
+        )
+    } catch (_: Exception) {
+        emptyList()
+    }
 
     fun parseDurationToSeconds(durationStr: String): Long? {
         val parts = durationStr.trim().split(":")
@@ -27,7 +32,7 @@ object VoiceNoteScanner {
     fun findClosestVoiceNote(targetDurationSec: Long): File? {
         val allAudioFiles = mutableListOf<File>()
 
-        for (baseDir in WHATSAPP_VN_PATHS) {
+        for (baseDir in getWhatsAppVoiceNotePaths()) {
             if (baseDir.exists() && baseDir.isDirectory) {
                 collectAudioFiles(baseDir, allAudioFiles)
             }

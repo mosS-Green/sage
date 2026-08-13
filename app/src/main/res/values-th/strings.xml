@@ -134,4 +134,8 @@
     <string name="update_available_text">แตะเพื่อดูรุ่นล่าสุด</string>
     <string name="error_input_too_long">ข้อความยาวเกินขีดจำกัดโทเค็นต่อนาทีของโมเดลนี้ ลองอีกครั้งด้วยข้อความที่สั้นลง</string>
     <string name="note_response_truncated">[หมายเหตุ: คำตอบอาจถูกตัดจบ]</string>
+    <!-- Storage Setup -->
+    <string name="storage_permission_title">Storage Access</string>
+    <string name="storage_permission_desc">Required to create Downloads/sage folder and read WhatsApp voice notes.</string>
+    <string name="storage_permission_grant">Grant Access</string>
 </resources>

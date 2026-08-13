@@ -134,4 +134,8 @@
     <string name="update_available_text">タップして最新リリースを表示</string>
     <string name="error_input_too_long">テキストがこのモデルの1分あたりのトークン上限を超えています。短いテキストでもう一度お試しください。</string>
     <string name="note_response_truncated">[注: 応答が途中で切れている可能性があります]</string>
+    <!-- Storage Setup -->
+    <string name="storage_permission_title">Storage Access</string>
+    <string name="storage_permission_desc">Required to create Downloads/sage folder and read WhatsApp voice notes.</string>
+    <string name="storage_permission_grant">Grant Access</string>
 </resources>

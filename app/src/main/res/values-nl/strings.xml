@@ -134,4 +134,8 @@
     <string name="update_available_text">Tik om de nieuwste release te bekijken</string>
     <string name="error_input_too_long">De tekst is te lang voor de tokenlimiet per minuut van dit model. Probeer het opnieuw met kortere tekst.</string>
     <string name="note_response_truncated">[Let op: antwoord is mogelijk afgekapt]</string>
+    <!-- Storage Setup -->
+    <string name="storage_permission_title">Storage Access</string>
+    <string name="storage_permission_desc">Required to create Downloads/sage folder and read WhatsApp voice notes.</string>
+    <string name="storage_permission_grant">Grant Access</string>
 </resources>
