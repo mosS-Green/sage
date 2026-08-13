@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">SwiftSlate-avustin</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Sage-avustin</string>
     <string name="accessibility_service_desc">Tarjoaa järjestelmänlaajuisia AI-pohjaisia tekstinkorvauksia, kun käynnistyskomennot kirjoitetaan.</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">Tämä korvaa kaikki olemassa olevat mukautetut komentosi. Jatketaanko?</string>
     <string name="backup_import_cancel">Peruuta</string>
     <string name="settings_check_updates">Tarkista päivitykset</string>
-    <string name="settings_made_by">Tehty rakkaudella Musheer Alamin toimesta</string>
-    <string name="settings_sponsor">Sponsoroi GitHubissa</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">Sulje</string>
     <string name="commands_expand">Laajenna</string>
     <string name="commands_search_hint">Hae komentoja…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">Yritä uudelleen</string>
     <string name="process_text_copied">Kopioitu</string>
     <string name="process_text_no_selection">Tekstiä ei ole valittu</string>
-    <string name="process_text_no_commands">Komentoja ei ole käytettävissä. Lisää komento SwiftSlatessa.</string>
+    <string name="process_text_no_commands">Komentoja ei ole käytettävissä. Lisää komento Sagessa.</string>
     <string name="toast_restore_failed">Alkuperäisen tekstin palauttaminen epäonnistui</string>
     <string name="toast_nothing_to_undo">Ei mitään kumottavaa</string>
     <string name="toast_undo_failed">Kumoaminen epäonnistui</string>
@@ -130,8 +129,8 @@
 
     <!-- Updates and command descriptions -->
     <string name="update_channel_name">Sovelluspäivitykset</string>
-    <string name="update_channel_desc">Ilmoittaa, kun uusi SwiftSlate-versio on saatavilla</string>
-    <string name="update_available_title">SwiftSlate-päivitys saatavilla</string>
+    <string name="update_channel_desc">Ilmoittaa, kun uusi Sage-versio on saatavilla</string>
+    <string name="update_available_title">Sage-päivitys saatavilla</string>
     <string name="update_available_text">Napauta nähdäksesi uusimman version</string>
     <string name="error_input_too_long">Teksti on liian pitkä tämän mallin minuuttikohtaiselle token-rajalle. Yritä uudelleen lyhyemmällä tekstillä.</string>
     <string name="note_response_truncated">[Huomio: vastaus voi olla katkaistu]</string>

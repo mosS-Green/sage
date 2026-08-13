@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">SwiftSlate Assistant</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Sage Assistant</string>
     <string name="accessibility_service_desc">Provides system-wide AI text replacements when trigger commands are typed.</string>
 
     <!-- Dashboard -->
@@ -77,8 +77,7 @@
     <string name="backup_import_confirm">This will replace all your existing custom commands. Continue?</string>
     <string name="backup_import_cancel">Cancel</string>
     <string name="settings_check_updates">Check for updates</string>
-    <string name="settings_made_by">Made with love by Musheer Alam</string>
-    <string name="settings_sponsor">Sponsor on GitHub</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">Collapse</string>
     <string name="commands_expand">Expand</string>
     <string name="commands_search_hint">Search commands…</string>
@@ -107,7 +106,7 @@
     <string name="process_text_retry">Retry</string>
     <string name="process_text_copied">Copied</string>
     <string name="process_text_no_selection">No text selected</string>
-    <string name="process_text_no_commands">No commands available. Add one in SwiftSlate.</string>
+    <string name="process_text_no_commands">No commands available. Add one in Sage.</string>
     <string name="toast_restore_failed">Could not restore original text</string>
     <string name="toast_nothing_to_undo">Nothing to undo</string>
     <string name="toast_undo_failed">Could not undo</string>
@@ -137,8 +136,13 @@
     <string name="note_response_truncated">[Note: response may be cut off]</string>
     <!-- Update notification (worker) -->
     <string name="update_channel_name">App Updates</string>
-    <string name="update_channel_desc">Notifies when a new version of SwiftSlate is available</string>
-    <string name="update_available_title">SwiftSlate update available</string>
+    <string name="update_channel_desc">Notifies when a new version of Sage is available</string>
+    <string name="update_available_title">Sage update available</string>
     <string name="update_available_text">Tap to view the latest release</string>
+
+    <!-- Storage Setup & Feature Toasts -->
+    <string name="storage_permission_title">Storage Access</string>
+    <string name="storage_permission_desc">Required to create Downloads/sage folder and read WhatsApp voice notes.</string>
+    <string name="storage_permission_grant">Grant Access</string>
 
 </resources>

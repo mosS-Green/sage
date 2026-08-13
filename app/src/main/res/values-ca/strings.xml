@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">Assistent SwiftSlate</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Assistent Sage</string>
     <string name="accessibility_service_desc">Proporciona substitucions de text amb IA a tot el sistema quan s’escriuen ordres de disparador.</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">Això substituirà totes les teves ordres personalitzades existents. Continues?</string>
     <string name="backup_import_cancel">Cancel·la</string>
     <string name="settings_check_updates">Comprova si hi ha actualitzacions</string>
-    <string name="settings_made_by">Fet amb amor per Musheer Alam</string>
-    <string name="settings_sponsor">Patrocina a GitHub</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">Col·lapsa</string>
     <string name="commands_expand">Expandeix</string>
     <string name="commands_search_hint">Cerca ordres…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">Torna-ho a provar</string>
     <string name="process_text_copied">S’ha copiat</string>
     <string name="process_text_no_selection">No hi ha text seleccionat</string>
-    <string name="process_text_no_commands">No hi ha ordres disponibles. Afegeix-ne una a SwiftSlate.</string>
+    <string name="process_text_no_commands">No hi ha ordres disponibles. Afegeix-ne una a Sage.</string>
     <string name="toast_restore_failed">No s’ha pogut restaurar el text original</string>
     <string name="toast_nothing_to_undo">No hi ha res per desfer</string>
     <string name="toast_undo_failed">No s’ha pogut desfer</string>
@@ -130,8 +129,8 @@
 
     <!-- Updates -->
     <string name="update_channel_name">Actualitzacions de l\'aplicació</string>
-    <string name="update_channel_desc">Avisa quan hi ha disponible una nova versió de SwiftSlate</string>
-    <string name="update_available_title">Hi ha una actualització de SwiftSlate disponible</string>
+    <string name="update_channel_desc">Avisa quan hi ha disponible una nova versió de Sage</string>
+    <string name="update_available_title">Hi ha una actualització de Sage disponible</string>
     <string name="update_available_text">Toca per veure l\'última versió</string>
 
     <!-- Command descriptions -->

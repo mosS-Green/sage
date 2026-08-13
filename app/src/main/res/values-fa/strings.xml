@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">دستیار SwiftSlate</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">دستیار Sage</string>
     <string name="accessibility_service_desc">هنگام تایپ دستورات محرک، جایگزینی متن مبتنی بر هوش مصنوعی را در سطح سیستم فراهم می‌کند.</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">این کار تمام دستورات سفارشی موجود شما را جایگزین می‌کند. ادامه می‌دهید؟</string>
     <string name="backup_import_cancel">لغو</string>
     <string name="settings_check_updates">بررسی به‌روزرسانی</string>
-    <string name="settings_made_by">ساخته شده با عشق توسط Musheer Alam</string>
-    <string name="settings_sponsor">حمایت در GitHub</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">جمع کردن</string>
     <string name="commands_expand">باز کردن</string>
     <string name="commands_search_hint">جستجوی دستورات…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">تلاش دوباره</string>
     <string name="process_text_copied">کپی شد</string>
     <string name="process_text_no_selection">هیچ متنی انتخاب نشده است</string>
-    <string name="process_text_no_commands">هیچ فرمانی موجود نیست. یکی در SwiftSlate اضافه کنید.</string>
+    <string name="process_text_no_commands">هیچ فرمانی موجود نیست. یکی در Sage اضافه کنید.</string>
     <string name="toast_restore_failed">بازیابی متن اصلی انجام نشد</string>
     <string name="toast_nothing_to_undo">چیزی برای واگرد وجود ندارد</string>
     <string name="toast_undo_failed">واگرد انجام نشد</string>
@@ -130,8 +129,8 @@
 
     <!-- Updates and command descriptions -->
     <string name="update_channel_name">به‌روزرسانی‌های برنامه</string>
-    <string name="update_channel_desc">هنگامی که نسخه جدیدی از SwiftSlate در دسترس باشد اطلاع می‌دهد</string>
-    <string name="update_available_title">به‌روزرسانی SwiftSlate در دسترس است</string>
+    <string name="update_channel_desc">هنگامی که نسخه جدیدی از Sage در دسترس باشد اطلاع می‌دهد</string>
+    <string name="update_available_title">به‌روزرسانی Sage در دسترس است</string>
     <string name="update_available_text">برای مشاهده آخرین نسخه ضربه بزنید</string>
     <string name="error_input_too_long">متن از محدودیت توکن در دقیقه این مدل بلندتر است. با متن کوتاه‌تری دوباره تلاش کنید.</string>
     <string name="note_response_truncated">[توجه: ممکن است پاسخ ناقص باشد]</string>

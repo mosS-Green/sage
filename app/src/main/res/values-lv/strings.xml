@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">SwiftSlate palīgs</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Sage palīgs</string>
     <string name="accessibility_service_desc">Nodrošina sistēmas mēroga AI teksta aizstāšanu, kad tiek ierakstītas aktivizējošās komandas.</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">Tas aizstās visas jūsu esošās pielāgotās komandas. Turpināt?</string>
     <string name="backup_import_cancel">Atcelt</string>
     <string name="settings_check_updates">Pārbaudīt atjauninājumus</string>
-    <string name="settings_made_by">Izgatavots ar mīlestību Musheer Alam</string>
-    <string name="settings_sponsor">Atbalstīt GitHub</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">Sakļaut</string>
     <string name="commands_expand">Izvērst</string>
     <string name="commands_search_hint">Meklēt komandas…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">Mēģināt vēlreiz</string>
     <string name="process_text_copied">Nokopēts</string>
     <string name="process_text_no_selection">Nav atlasīts teksts</string>
-    <string name="process_text_no_commands">Nav pieejamu komandu. Pievienojiet komandu lietotnē SwiftSlate.</string>
+    <string name="process_text_no_commands">Nav pieejamu komandu. Pievienojiet komandu lietotnē Sage.</string>
     <string name="toast_restore_failed">Nevarēja atjaunot sākotnējo tekstu</string>
     <string name="toast_nothing_to_undo">Nav ko atsaukt</string>
     <string name="toast_undo_failed">Nevarēja atsaukt</string>
@@ -130,8 +129,8 @@
 
     <!-- Update notifications -->
     <string name="update_channel_name">Lietotnes atjauninājumi</string>
-    <string name="update_channel_desc">Paziņo, kad ir pieejama jauna SwiftSlate versija</string>
-    <string name="update_available_title">Pieejams SwiftSlate atjauninājums</string>
+    <string name="update_channel_desc">Paziņo, kad ir pieejama jauna Sage versija</string>
+    <string name="update_available_title">Pieejams Sage atjauninājums</string>
     <string name="update_available_text">Pieskarieties, lai skatītu jaunāko laidienu</string>
     <string name="error_input_too_long">Teksts ir pārāk garš šī modeļa marķieru ierobežojumam minūtē. Mēģiniet vēlreiz ar īsāku tekstu.</string>
     <string name="note_response_truncated">[Piezīme: atbilde var būt saīsināta]</string>

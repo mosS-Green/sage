@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">SwiftSlate सहायक</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Sage सहायक</string>
     <string name="accessibility_service_desc">ट्रिगर कमांड टाइप करने पर सिस्टम-व्यापी AI टेक्स्ट प्रतिस्थापन प्रदान करता है।</string>
 
     <!-- Dashboard -->
@@ -88,8 +88,7 @@
     <string name="dashboard_no_data">—</string>
     <string name="dashboard_last_7_days">पिछले 7 दिन</string>
     <string name="settings_temperature_title">तापमान</string>
-    <string name="settings_made_by">Musheer Alam द्वारा प्यार से बनाया गया</string>
-    <string name="settings_sponsor">GitHub पर प्रायोजित करें</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
 
     <!-- Toasts and errors -->
     <string name="toast_replace_failed">टेक्स्ट प्रतिस्थापित नहीं किया जा सका</string>
@@ -105,7 +104,7 @@
     <string name="process_text_retry">पुनः प्रयास करें</string>
     <string name="process_text_copied">कॉपी किया गया</string>
     <string name="process_text_no_selection">कोई टेक्स्ट चयनित नहीं है</string>
-    <string name="process_text_no_commands">कोई कमांड उपलब्ध नहीं है। SwiftSlate में एक कमांड जोड़ें।</string>
+    <string name="process_text_no_commands">कोई कमांड उपलब्ध नहीं है। Sage में एक कमांड जोड़ें।</string>
     <string name="toast_restore_failed">मूल टेक्स्ट पुनर्स्थापित नहीं किया जा सका</string>
     <string name="toast_nothing_to_undo">पूर्ववत करने के लिए कुछ नहीं है</string>
     <string name="toast_undo_failed">पूर्ववत नहीं किया जा सका</string>
@@ -129,8 +128,8 @@
 
     <!-- Updates and command descriptions -->
     <string name="update_channel_name">ऐप अपडेट</string>
-    <string name="update_channel_desc">SwiftSlate का नया संस्करण उपलब्ध होने पर सूचित करता है</string>
-    <string name="update_available_title">SwiftSlate अपडेट उपलब्ध है</string>
+    <string name="update_channel_desc">Sage का नया संस्करण उपलब्ध होने पर सूचित करता है</string>
+    <string name="update_available_title">Sage अपडेट उपलब्ध है</string>
     <string name="update_available_text">नवीनतम रिलीज़ देखने के लिए टैप करें</string>
     <string name="error_input_too_long">यह टेक्स्ट इस मॉडल की हर मिनट की टोकन सीमा के लिए बहुत लंबा है. छोटे टेक्स्ट के साथ दोबारा कोशिश करें.</string>
     <string name="note_response_truncated">[नोट: जवाब अधूरा हो सकता है]</string>

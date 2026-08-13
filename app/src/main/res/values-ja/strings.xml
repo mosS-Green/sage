@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">SwiftSlate アシスタント</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Sage アシスタント</string>
     <string name="accessibility_service_desc">トリガーコマンドを入力すると、システム全体で AI によるテキスト置換を提供します。</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">これにより、既存のカスタムコマンドがすべて置き換えられます。続行しますか？</string>
     <string name="backup_import_cancel">キャンセル</string>
     <string name="settings_check_updates">アップデートを確認</string>
-    <string name="settings_made_by">Musheer Alam によって愛情を込めて作られました</string>
-    <string name="settings_sponsor">GitHub でスポンサーになる</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">折りたたむ</string>
     <string name="commands_expand">展開する</string>
     <string name="commands_search_hint">コマンドを検索…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">再試行</string>
     <string name="process_text_copied">コピーしました</string>
     <string name="process_text_no_selection">テキストが選択されていません</string>
-    <string name="process_text_no_commands">使用できるコマンドがありません。SwiftSlate で追加してください。</string>
+    <string name="process_text_no_commands">使用できるコマンドがありません。Sage で追加してください。</string>
     <string name="toast_restore_failed">元のテキストを復元できませんでした</string>
     <string name="toast_nothing_to_undo">元に戻す操作がありません</string>
     <string name="toast_undo_failed">元に戻せませんでした</string>
@@ -130,8 +129,8 @@
 
     <!-- Updates -->
     <string name="update_channel_name">アプリのアップデート</string>
-    <string name="update_channel_desc">SwiftSlate の新しいバージョンが利用可能になると通知します</string>
-    <string name="update_available_title">SwiftSlate のアップデートが利用可能です</string>
+    <string name="update_channel_desc">Sage の新しいバージョンが利用可能になると通知します</string>
+    <string name="update_available_title">Sage のアップデートが利用可能です</string>
     <string name="update_available_text">タップして最新リリースを表示</string>
     <string name="error_input_too_long">テキストがこのモデルの1分あたりのトークン上限を超えています。短いテキストでもう一度お試しください。</string>
     <string name="note_response_truncated">[注: 応答が途中で切れている可能性があります]</string>

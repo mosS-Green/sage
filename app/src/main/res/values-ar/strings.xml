@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">مساعد SwiftSlate</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">مساعد Sage</string>
     <string name="accessibility_service_desc">يوفر استبدالات نصية مدعومة بالذكاء الاصطناعي على مستوى النظام عند كتابة أوامر التشغيل.</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">سيؤدي هذا إلى استبدال جميع أوامرك المخصصة الحالية. هل ترغب في المتابعة؟</string>
     <string name="backup_import_cancel">إلغاء</string>
     <string name="settings_check_updates">التحقق من التحديثات</string>
-    <string name="settings_made_by">صُنع بحب بواسطة Musheer Alam</string>
-    <string name="settings_sponsor">دعم على GitHub</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">طي</string>
     <string name="commands_expand">توسيع</string>
     <string name="commands_search_hint">البحث عن الأوامر…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">إعادة المحاولة</string>
     <string name="process_text_copied">تم النسخ</string>
     <string name="process_text_no_selection">لم يتم تحديد نص</string>
-    <string name="process_text_no_commands">لا توجد أوامر متاحة. أضف أمرًا في SwiftSlate.</string>
+    <string name="process_text_no_commands">لا توجد أوامر متاحة. أضف أمرًا في Sage.</string>
     <string name="toast_restore_failed">تعذّر استعادة النص الأصلي</string>
     <string name="toast_nothing_to_undo">لا يوجد شيء للتراجع عنه</string>
     <string name="toast_undo_failed">تعذّر التراجع</string>
@@ -130,8 +129,8 @@
 
     <!-- Updates -->
     <string name="update_channel_name">تحديثات التطبيق</string>
-    <string name="update_channel_desc">يُعلمك عند توفر إصدار جديد من SwiftSlate</string>
-    <string name="update_available_title">يتوفر تحديث لـ SwiftSlate</string>
+    <string name="update_channel_desc">يُعلمك عند توفر إصدار جديد من Sage</string>
+    <string name="update_available_title">يتوفر تحديث لـ Sage</string>
     <string name="update_available_text">انقر لعرض أحدث إصدار</string>
 
     <!-- Command descriptions -->

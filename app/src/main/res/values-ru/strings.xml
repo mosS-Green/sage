@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">Помощник SwiftSlate</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Помощник Sage</string>
     <string name="accessibility_service_desc">Обеспечивает общесистемную замену текста с помощью ИИ при вводе триггерных команд.</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">Это заменит все ваши существующие пользовательские команды. Продолжить?</string>
     <string name="backup_import_cancel">Отмена</string>
     <string name="settings_check_updates">Проверить обновления</string>
-    <string name="settings_made_by">Сделано с любовью Musheer Alam</string>
-    <string name="settings_sponsor">Поддержать на GitHub</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">Свернуть</string>
     <string name="commands_expand">Развернуть</string>
     <string name="commands_search_hint">Поиск команд…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">Повторить</string>
     <string name="process_text_copied">Скопировано</string>
     <string name="process_text_no_selection">Текст не выбран</string>
-    <string name="process_text_no_commands">Нет доступных команд. Добавьте команду в SwiftSlate.</string>
+    <string name="process_text_no_commands">Нет доступных команд. Добавьте команду в Sage.</string>
     <string name="toast_restore_failed">Не удалось восстановить исходный текст</string>
     <string name="toast_nothing_to_undo">Нечего отменять</string>
     <string name="toast_undo_failed">Не удалось отменить</string>
@@ -130,8 +129,8 @@
 
     <!-- Updates & command descriptions -->
     <string name="update_channel_name">Обновления приложения</string>
-    <string name="update_channel_desc">Уведомляет о выходе новой версии SwiftSlate</string>
-    <string name="update_available_title">Доступно обновление SwiftSlate</string>
+    <string name="update_channel_desc">Уведомляет о выходе новой версии Sage</string>
+    <string name="update_available_title">Доступно обновление Sage</string>
     <string name="update_available_text">Нажмите, чтобы посмотреть последнюю версию</string>
     <string name="error_input_too_long">Текст слишком длинный для лимита токенов в минуту у этой модели. Повторите попытку с более коротким текстом.</string>
     <string name="note_response_truncated">[Примечание: ответ может быть обрезан]</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">Assistente SwiftSlate</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Assistente Sage</string>
     <string name="accessibility_service_desc">Fornisce sostituzioni di testo basate su IA a livello di sistema quando vengono digitati comandi trigger.</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">Questo sostituirà tutti i tuoi comandi personalizzati esistenti. Continuare?</string>
     <string name="backup_import_cancel">Annulla</string>
     <string name="settings_check_updates">Verifica aggiornamenti</string>
-    <string name="settings_made_by">Fatto con amore da Musheer Alam</string>
-    <string name="settings_sponsor">Sponsorizza su GitHub</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">Comprimi</string>
     <string name="commands_expand">Espandi</string>
     <string name="commands_search_hint">Cerca comandi…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">Riprova</string>
     <string name="process_text_copied">Copiato</string>
     <string name="process_text_no_selection">Nessun testo selezionato</string>
-    <string name="process_text_no_commands">Nessun comando disponibile. Aggiungine uno in SwiftSlate.</string>
+    <string name="process_text_no_commands">Nessun comando disponibile. Aggiungine uno in Sage.</string>
     <string name="toast_restore_failed">Impossibile ripristinare il testo originale</string>
     <string name="toast_nothing_to_undo">Niente da annullare</string>
     <string name="toast_undo_failed">Impossibile annullare</string>
@@ -130,8 +129,8 @@
 
     <!-- Updates -->
     <string name="update_channel_name">Aggiornamenti app</string>
-    <string name="update_channel_desc">Notifica quando è disponibile una nuova versione di SwiftSlate</string>
-    <string name="update_available_title">Aggiornamento di SwiftSlate disponibile</string>
+    <string name="update_channel_desc">Notifica quando è disponibile una nuova versione di Sage</string>
+    <string name="update_available_title">Aggiornamento di Sage disponibile</string>
     <string name="update_available_text">Tocca per visualizzare l\'ultima versione</string>
     <string name="error_input_too_long">Il testo è troppo lungo per il limite di token al minuto di questo modello. Riprova con un testo più corto.</string>
     <string name="note_response_truncated">[Nota: la risposta potrebbe essere troncata]</string>

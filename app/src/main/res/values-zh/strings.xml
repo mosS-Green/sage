@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">SwiftSlate 助手</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Sage 助手</string>
     <string name="accessibility_service_desc">在输入触发命令时，提供系统级 AI 文本替换功能。</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">这将替换您所有现有的自定义命令。是否继续？</string>
     <string name="backup_import_cancel">取消</string>
     <string name="settings_check_updates">检查更新</string>
-    <string name="settings_made_by">由 Musheer Alam 用心制作</string>
-    <string name="settings_sponsor">在 GitHub 上赞助</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">收起</string>
     <string name="commands_expand">展开</string>
     <string name="commands_search_hint">搜索命令…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">重试</string>
     <string name="process_text_copied">已复制</string>
     <string name="process_text_no_selection">未选择文本</string>
-    <string name="process_text_no_commands">没有可用命令。请在 SwiftSlate 中添加一个命令。</string>
+    <string name="process_text_no_commands">没有可用命令。请在 Sage 中添加一个命令。</string>
     <string name="toast_restore_failed">无法恢复原始文本</string>
     <string name="toast_nothing_to_undo">没有可撤销的内容</string>
     <string name="toast_undo_failed">无法撤销</string>
@@ -130,8 +129,8 @@
 
     <!-- Updates &amp; command descriptions -->
     <string name="update_channel_name">应用更新</string>
-    <string name="update_channel_desc">当 SwiftSlate 有新版本时通知</string>
-    <string name="update_available_title">SwiftSlate 更新可用</string>
+    <string name="update_channel_desc">当 Sage 有新版本时通知</string>
+    <string name="update_available_title">Sage 更新可用</string>
     <string name="update_available_text">点按以查看最新版本</string>
     <string name="error_input_too_long">文本超出了此模型每分钟的令牌上限。请使用更短的文本重试。</string>
     <string name="note_response_truncated">[注意：回复可能被截断]</string>

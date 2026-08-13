@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">SwiftSlate\'i abiline</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Sage\'i abiline</string>
     <string name="accessibility_service_desc">Pakub süsteemisiseseid AI-põhiseid tekstiasendusi, kui sisestatakse päästikkäske.</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">See asendab kõik teie olemasolevad kohandatud käsud. Kas jätkate?</string>
     <string name="backup_import_cancel">Tühista</string>
     <string name="settings_check_updates">Kontrolli uuendusi</string>
-    <string name="settings_made_by">Valmistatud armastusega Musheer Alam\'i poolt</string>
-    <string name="settings_sponsor">Toeta GitHubis</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">Ahenda</string>
     <string name="commands_expand">Laienda</string>
     <string name="commands_search_hint">Otsi käske…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">Proovi uuesti</string>
     <string name="process_text_copied">Kopeeritud</string>
     <string name="process_text_no_selection">Teksti pole valitud</string>
-    <string name="process_text_no_commands">Ühtegi käsku pole saadaval. Lisa käsk SwiftSlate’is.</string>
+    <string name="process_text_no_commands">Ühtegi käsku pole saadaval. Lisa käsk Sage’is.</string>
     <string name="toast_restore_failed">Algset teksti ei õnnestunud taastada</string>
     <string name="toast_nothing_to_undo">Pole midagi tagasi võtta</string>
     <string name="toast_undo_failed">Tagasivõtmine ebaõnnestus</string>
@@ -130,8 +129,8 @@
 
     <!-- Updates and command descriptions -->
     <string name="update_channel_name">Rakenduse uuendused</string>
-    <string name="update_channel_desc">Teavitab, kui SwiftSlate\'i uus versioon on saadaval</string>
-    <string name="update_available_title">SwiftSlate\'i uuendus on saadaval</string>
+    <string name="update_channel_desc">Teavitab, kui Sage\'i uus versioon on saadaval</string>
+    <string name="update_available_title">Sage\'i uuendus on saadaval</string>
     <string name="update_available_text">Puuduta uusima versiooni vaatamiseks</string>
     <string name="error_input_too_long">Tekst on selle mudeli minutis lubatud tokenite piirangu jaoks liiga pikk. Proovi uuesti lühema tekstiga.</string>
     <string name="note_response_truncated">[Märkus: vastus võib olla poolik]</string>

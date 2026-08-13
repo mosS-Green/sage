@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">העוזר של SwiftSlate</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">העוזר של Sage</string>
     <string name="accessibility_service_desc">מספק החלפות טקסט מבוססות בינה מלאכותית ברמת המערכת בעת הקלדת פקודות הפעלה.</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">פעולה זו תחליף את כל הפקודות המותאמות אישית הקיימות שלך. להמשיך?</string>
     <string name="backup_import_cancel">בטל</string>
     <string name="settings_check_updates">בדוק עדכונים</string>
-    <string name="settings_made_by">נעשה באהבה על ידי Musheer Alam</string>
-    <string name="settings_sponsor">תמיכה ב-GitHub</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">כווץ</string>
     <string name="commands_expand">הרחב</string>
     <string name="commands_search_hint">חיפוש פקודות…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">ניסיון חוזר</string>
     <string name="process_text_copied">הועתק</string>
     <string name="process_text_no_selection">לא נבחר טקסט</string>
-    <string name="process_text_no_commands">אין פקודות זמינות. אפשר להוסיף פקודה ב-SwiftSlate.</string>
+    <string name="process_text_no_commands">אין פקודות זמינות. אפשר להוסיף פקודה ב-Sage.</string>
     <string name="toast_restore_failed">לא ניתן לשחזר את הטקסט המקורי</string>
     <string name="toast_nothing_to_undo">אין מה לבטל</string>
     <string name="toast_undo_failed">לא ניתן לבטל</string>
@@ -130,8 +129,8 @@
 
     <!-- Updates -->
     <string name="update_channel_name">עדכוני אפליקציה</string>
-    <string name="update_channel_desc">מודיע כאשר גרסה חדשה של SwiftSlate זמינה</string>
-    <string name="update_available_title">עדכון של SwiftSlate זמין</string>
+    <string name="update_channel_desc">מודיע כאשר גרסה חדשה של Sage זמינה</string>
+    <string name="update_available_title">עדכון של Sage זמין</string>
     <string name="update_available_text">הקש כדי להציג את המהדורה האחרונה</string>
     <string name="error_input_too_long">הטקסט ארוך מדי עבור מגבלת הטוקנים לדקה של המודל הזה. נסה שוב עם טקסט קצר יותר.</string>
     <string name="note_response_truncated">[הערה: התשובה עשויה להיות קטועה]</string>

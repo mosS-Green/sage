@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">Asistent SwiftSlate</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Asistent Sage</string>
     <string name="accessibility_service_desc">Poskytuje systémové náhrady textu pomocou AI, keď zadáte spúšťacie príkazy.</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">Toto nahradí všetky vaše existujúce vlastné príkazy. Pokračovať?</string>
     <string name="backup_import_cancel">Zrušiť</string>
     <string name="settings_check_updates">Skontrolovať aktualizácie</string>
-    <string name="settings_made_by">Vyrobené s láskou Musheerom Alamom</string>
-    <string name="settings_sponsor">Sponzorujte na GitHub</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">Zbaliť</string>
     <string name="commands_expand">Rozbaliť</string>
     <string name="commands_search_hint">Hľadať príkazy…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">Skúsiť znova</string>
     <string name="process_text_copied">Skopírované</string>
     <string name="process_text_no_selection">Nie je vybratý žiadny text</string>
-    <string name="process_text_no_commands">Nie sú dostupné žiadne príkazy. Pridajte jeden v SwiftSlate.</string>
+    <string name="process_text_no_commands">Nie sú dostupné žiadne príkazy. Pridajte jeden v Sage.</string>
     <string name="toast_restore_failed">Pôvodný text sa nepodarilo obnoviť</string>
     <string name="toast_nothing_to_undo">Nie je čo vrátiť späť</string>
     <string name="toast_undo_failed">Nepodarilo sa vrátiť späť</string>
@@ -130,8 +129,8 @@
 
     <!-- Updates & command descriptions -->
     <string name="update_channel_name">Aktualizácie aplikácie</string>
-    <string name="update_channel_desc">Upozorní, keď je k dispozícii nová verzia SwiftSlate</string>
-    <string name="update_available_title">Dostupná aktualizácia SwiftSlate</string>
+    <string name="update_channel_desc">Upozorní, keď je k dispozícii nová verzia Sage</string>
+    <string name="update_available_title">Dostupná aktualizácia Sage</string>
     <string name="update_available_text">Ťuknutím zobrazíte najnovšiu verziu</string>
     <string name="error_input_too_long">Text je príliš dlhý pre limit tokenov za minútu tohto modelu. Skúste to znova s kratším textom.</string>
     <string name="note_response_truncated">[Poznámka: odpoveď môže byť skrátená]</string>

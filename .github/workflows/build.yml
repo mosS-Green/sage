@@ -266,13 +266,13 @@ jobs:
         shell: bash
         env:
           TAG: ${{ needs.version.outputs.tag }}
-        run: mv app/build/outputs/apk/release/app-release.apk "app/build/outputs/apk/release/SwiftSlate-${TAG}.apk"
+        run: mv app/build/outputs/apk/release/app-release.apk "app/build/outputs/apk/release/Sage-${TAG}.apk"
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: SwiftSlate-${{ needs.version.outputs.tag }}
-          path: app/build/outputs/apk/release/SwiftSlate-*.apk
+          name: Sage-${{ needs.version.outputs.tag }}
+          path: app/build/outputs/apk/release/Sage-*.apk
           retention-days: 90
 
   tag:
@@ -394,7 +394,7 @@ jobs:
       - name: Download APK
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
-          name: SwiftSlate-${{ needs.version.outputs.tag }}
+          name: Sage-${{ needs.version.outputs.tag }}
           path: artifacts/
 
       - name: Download changelog
@@ -414,9 +414,9 @@ jobs:
         with:
           tag_name: ${{ needs.version.outputs.tag }}
           files: |
-            artifacts/SwiftSlate-*.apk
+            artifacts/Sage-*.apk
             artifacts/versionCode.txt
-          name: SwiftSlate ${{ needs.version.outputs.tag }}
+          name: Sage ${{ needs.version.outputs.tag }}
           body_path: /tmp/changelog.md
           draft: false
           prerelease: false
@@ -470,13 +470,13 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           mv app/build/outputs/apk/preview/app-preview.apk \
-             "app/build/outputs/apk/preview/SwiftSlate-preview-pr${PR_NUMBER}-${GITHUB_SHA:0:7}.apk"
+             "app/build/outputs/apk/preview/Sage-preview-pr${PR_NUMBER}-${GITHUB_SHA:0:7}.apk"
 
       - name: Upload preview APK
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: SwiftSlate-preview-pr${{ github.event.pull_request.number }}
-          path: app/build/outputs/apk/preview/SwiftSlate-preview-*.apk
+          name: Sage-preview-pr${{ github.event.pull_request.number }}
+          path: app/build/outputs/apk/preview/Sage-preview-*.apk
           retention-days: 14
 
       - name: Explain how to use it
@@ -485,8 +485,8 @@ jobs:
           {
             echo "### Preview APK ready"
             echo
-            echo "Installs as a **separate app** (\`com.musheer360.swiftslate.preview\`, shown as"
-            echo "**SwiftSlate Preview**), so it will not touch your stable install, its API keys,"
+            echo "Installs as a **separate app** (\`com.musheer360.sage.preview\`, shown as"
+            echo "**Sage Preview**), so it will not touch your stable install, its API keys,"
             echo "its commands or its accessibility setting."
             echo
             echo "Download it from the **Artifacts** section of this run, then enable it under"

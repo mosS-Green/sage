@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">SwiftSlate-assistent</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Sage-assistent</string>
     <string name="accessibility_service_desc">Giver systemdækkende AI-teksterstatninger, når udløserkommandoer indtastes.</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">Dette vil erstatte alle dine eksisterende brugerdefinerede kommandoer. Fortsæt?</string>
     <string name="backup_import_cancel">Annuller</string>
     <string name="settings_check_updates">Søg efter opdateringer</string>
-    <string name="settings_made_by">Lavet med kærlighed af Musheer Alam</string>
-    <string name="settings_sponsor">Sponsor på GitHub</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">Skjul</string>
     <string name="commands_expand">Vis</string>
     <string name="commands_search_hint">Søg kommandoer…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">Prøv igen</string>
     <string name="process_text_copied">Kopieret</string>
     <string name="process_text_no_selection">Ingen tekst markeret</string>
-    <string name="process_text_no_commands">Ingen kommandoer tilgængelige. Tilføj en i SwiftSlate.</string>
+    <string name="process_text_no_commands">Ingen kommandoer tilgængelige. Tilføj en i Sage.</string>
     <string name="toast_restore_failed">Den oprindelige tekst kunne ikke gendannes</string>
     <string name="toast_nothing_to_undo">Intet at fortryde</string>
     <string name="toast_undo_failed">Kunne ikke fortryde</string>
@@ -130,8 +129,8 @@
 
     <!-- Updates -->
     <string name="update_channel_name">App-opdateringer</string>
-    <string name="update_channel_desc">Giver besked, når en ny version af SwiftSlate er tilgængelig</string>
-    <string name="update_available_title">SwiftSlate-opdatering tilgængelig</string>
+    <string name="update_channel_desc">Giver besked, når en ny version af Sage er tilgængelig</string>
+    <string name="update_available_title">Sage-opdatering tilgængelig</string>
     <string name="update_available_text">Tryk for at se den nyeste version</string>
 
     <!-- Command descriptions -->

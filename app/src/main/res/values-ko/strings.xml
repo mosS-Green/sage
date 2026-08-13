@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">SwiftSlate 어시스턴트</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Sage 어시스턴트</string>
     <string name="accessibility_service_desc">트리거 명령어를 입력하면 시스템 전체에서 AI 기반 텍스트 대체를 제공합니다.</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">이 작업은 기존 사용자 지정 명령어를 모두 대체합니다. 계속하시겠습니까?</string>
     <string name="backup_import_cancel">취소</string>
     <string name="settings_check_updates">업데이트 확인</string>
-    <string name="settings_made_by">Musheer Alam이 사랑을 담아 제작</string>
-    <string name="settings_sponsor">GitHub에서 후원</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">접기</string>
     <string name="commands_expand">펼치기</string>
     <string name="commands_search_hint">명령어 검색…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">다시 시도</string>
     <string name="process_text_copied">복사됨</string>
     <string name="process_text_no_selection">선택된 텍스트가 없습니다</string>
-    <string name="process_text_no_commands">사용 가능한 명령이 없습니다. SwiftSlate에서 추가하세요.</string>
+    <string name="process_text_no_commands">사용 가능한 명령이 없습니다. Sage에서 추가하세요.</string>
     <string name="toast_restore_failed">원본 텍스트를 복원할 수 없습니다</string>
     <string name="toast_nothing_to_undo">실행 취소할 항목이 없습니다</string>
     <string name="toast_undo_failed">실행 취소할 수 없습니다</string>
@@ -130,8 +129,8 @@
 
     <!-- Updates -->
     <string name="update_channel_name">앱 업데이트</string>
-    <string name="update_channel_desc">SwiftSlate의 새 버전이 출시되면 알립니다</string>
-    <string name="update_available_title">SwiftSlate 업데이트 사용 가능</string>
+    <string name="update_channel_desc">Sage의 새 버전이 출시되면 알립니다</string>
+    <string name="update_available_title">Sage 업데이트 사용 가능</string>
     <string name="update_available_text">최신 릴리스를 보려면 탭하세요</string>
     <string name="error_input_too_long">이 모델의 분당 토큰 한도에 비해 텍스트가 너무 깁니다. 더 짧은 텍스트로 다시 시도하세요.</string>
     <string name="note_response_truncated">[참고: 응답이 잘렸을 수 있습니다]</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">SwiftSlate asszisztens</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Sage asszisztens</string>
     <string name="accessibility_service_desc">Rendszerszintű AI-alapú szöveghelyettesítéseket biztosít, amikor triggerparancsokat gépel be.</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">Ez az összes meglévő egyéni parancsot lecseréli. Folytatja?</string>
     <string name="backup_import_cancel">Mégse</string>
     <string name="settings_check_updates">Frissítések keresése</string>
-    <string name="settings_made_by">Szeretettel készítette Musheer Alam</string>
-    <string name="settings_sponsor">Támogatás a GitHubon</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">Összecsuk</string>
     <string name="commands_expand">Kibont</string>
     <string name="commands_search_hint">Parancsok keresése…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">Újra</string>
     <string name="process_text_copied">Másolva</string>
     <string name="process_text_no_selection">Nincs kijelölt szöveg</string>
-    <string name="process_text_no_commands">Nincs elérhető parancs. Adjon hozzá egyet a SwiftSlate-ben.</string>
+    <string name="process_text_no_commands">Nincs elérhető parancs. Adjon hozzá egyet a Sage-ben.</string>
     <string name="toast_restore_failed">Nem sikerült visszaállítani az eredeti szöveget</string>
     <string name="toast_nothing_to_undo">Nincs mit visszavonni</string>
     <string name="toast_undo_failed">Nem sikerült a visszavonás</string>
@@ -130,8 +129,8 @@
 
     <!-- Updates -->
     <string name="update_channel_name">Alkalmazásfrissítések</string>
-    <string name="update_channel_desc">Értesít, amikor elérhető a SwiftSlate új verziója</string>
-    <string name="update_available_title">SwiftSlate-frissítés érhető el</string>
+    <string name="update_channel_desc">Értesít, amikor elérhető a Sage új verziója</string>
+    <string name="update_available_title">Sage-frissítés érhető el</string>
     <string name="update_available_text">Koppintson a legújabb kiadás megtekintéséhez</string>
     <string name="error_input_too_long">A szöveg túl hosszú ennek a modellnek a percenkénti tokenkorlátjához. Próbáld újra rövidebb szöveggel.</string>
     <string name="note_response_truncated">[Megjegyzés: a válasz csonka lehet]</string>

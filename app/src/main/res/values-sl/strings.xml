@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">Pomočnik SwiftSlate</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Pomočnik Sage</string>
     <string name="accessibility_service_desc">Zagotavlja sistemske zamenjave besedila z umetno inteligenco, ko vnesete sprožilne ukaze.</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">To bo nadomestilo vse vaše obstoječe poljubne ukaze. Nadaljujem?</string>
     <string name="backup_import_cancel">Prekliči</string>
     <string name="settings_check_updates">Preveri posodobitve</string>
-    <string name="settings_made_by">Narejeno z ljubeznijo Musheer Alam</string>
-    <string name="settings_sponsor">Sponzoriraj na GitHubu</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">Strni</string>
     <string name="commands_expand">Razširi</string>
     <string name="commands_search_hint">Išči ukaze…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">Poskusi znova</string>
     <string name="process_text_copied">Kopirano</string>
     <string name="process_text_no_selection">Besedilo ni izbrano</string>
-    <string name="process_text_no_commands">Ni razpoložljivih ukazov. Dodajte enega v SwiftSlate.</string>
+    <string name="process_text_no_commands">Ni razpoložljivih ukazov. Dodajte enega v Sage.</string>
     <string name="toast_restore_failed">Izvirnega besedila ni bilo mogoče obnoviti</string>
     <string name="toast_nothing_to_undo">Ni ničesar za razveljavitev</string>
     <string name="toast_undo_failed">Razveljavitev ni uspela</string>
@@ -130,8 +129,8 @@
 
     <!-- Updates & command descriptions -->
     <string name="update_channel_name">Posodobitve aplikacije</string>
-    <string name="update_channel_desc">Obvesti, ko je na voljo nova različica SwiftSlate</string>
-    <string name="update_available_title">Na voljo je posodobitev SwiftSlate</string>
+    <string name="update_channel_desc">Obvesti, ko je na voljo nova različica Sage</string>
+    <string name="update_available_title">Na voljo je posodobitev Sage</string>
     <string name="update_available_text">Tapnite za ogled najnovejše različice</string>
     <string name="error_input_too_long">Besedilo je predolgo za omejitev žetonov na minuto tega modela. Poskusite znova s krajšim besedilom.</string>
     <string name="note_response_truncated">[Opomba: odgovor je morda skrajšan]</string>

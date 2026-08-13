@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">Помічник SwiftSlate</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Помічник Sage</string>
     <string name="accessibility_service_desc">Забезпечує загальносистемну заміну тексту за допомогою ШІ при введенні команд-тригерів.</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">Це замінить усі ваші наявні користувацькі команди. Продовжити?</string>
     <string name="backup_import_cancel">Скасувати</string>
     <string name="settings_check_updates">Перевірити оновлення</string>
-    <string name="settings_made_by">Зроблено з любов’ю Musheer Alam</string>
-    <string name="settings_sponsor">Спонсорувати на GitHub</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">Згорнути</string>
     <string name="commands_expand">Розгорнути</string>
     <string name="commands_search_hint">Пошук команд…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">Спробувати ще раз</string>
     <string name="process_text_copied">Скопійовано</string>
     <string name="process_text_no_selection">Текст не вибрано</string>
-    <string name="process_text_no_commands">Немає доступних команд. Додайте команду в SwiftSlate.</string>
+    <string name="process_text_no_commands">Немає доступних команд. Додайте команду в Sage.</string>
     <string name="toast_restore_failed">Не вдалося відновити оригінальний текст</string>
     <string name="toast_nothing_to_undo">Немає чого скасовувати</string>
     <string name="toast_undo_failed">Не вдалося скасувати</string>
@@ -130,8 +129,8 @@
 
     <!-- Updates &amp; command descriptions -->
     <string name="update_channel_name">Оновлення застосунку</string>
-    <string name="update_channel_desc">Сповіщає, коли доступна нова версія SwiftSlate</string>
-    <string name="update_available_title">Доступне оновлення SwiftSlate</string>
+    <string name="update_channel_desc">Сповіщає, коли доступна нова версія Sage</string>
+    <string name="update_available_title">Доступне оновлення Sage</string>
     <string name="update_available_text">Торкніться, щоб переглянути останній випуск</string>
     <string name="error_input_too_long">Текст задовгий для ліміту токенів на хвилину цієї моделі. Спробуйте ще раз із коротшим текстом.</string>
     <string name="note_response_truncated">[Примітка: відповідь може бути обрізана]</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">SwiftSlate Asistanı</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Sage Asistanı</string>
     <string name="accessibility_service_desc">Tetikleyici komutlar yazıldığında sistem genelinde AI tabanlı metin değiştirmeleri sağlar.</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">Bu, mevcut tüm özel komutlarınızı değiştirecektir. Devam etmek istiyor musunuz?</string>
     <string name="backup_import_cancel">İptal</string>
     <string name="settings_check_updates">Güncellemeleri kontrol et</string>
-    <string name="settings_made_by">Musheer Alam tarafından sevgiyle yapıldı</string>
-    <string name="settings_sponsor">GitHub\'da destekle</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">Daralt</string>
     <string name="commands_expand">Genişlet</string>
     <string name="commands_search_hint">Komutları ara…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">Tekrar dene</string>
     <string name="process_text_copied">Kopyalandı</string>
     <string name="process_text_no_selection">Metin seçilmedi</string>
-    <string name="process_text_no_commands">Kullanılabilir komut yok. SwiftSlate\'e bir komut ekleyin.</string>
+    <string name="process_text_no_commands">Kullanılabilir komut yok. Sage\'e bir komut ekleyin.</string>
     <string name="toast_restore_failed">Orijinal metin geri yüklenemedi</string>
     <string name="toast_nothing_to_undo">Geri alınacak bir şey yok</string>
     <string name="toast_undo_failed">Geri alınamadı</string>
@@ -130,8 +129,8 @@
 
     <!-- Updates &amp; command descriptions -->
     <string name="update_channel_name">Uygulama Güncellemeleri</string>
-    <string name="update_channel_desc">SwiftSlate\'in yeni bir sürümü kullanıma sunulduğunda bildirir</string>
-    <string name="update_available_title">SwiftSlate güncellemesi mevcut</string>
+    <string name="update_channel_desc">Sage\'in yeni bir sürümü kullanıma sunulduğunda bildirir</string>
+    <string name="update_available_title">Sage güncellemesi mevcut</string>
     <string name="update_available_text">En son sürümü görüntülemek için dokunun</string>
     <string name="error_input_too_long">Metin, bu modelin dakika başına token sınırı için çok uzun. Daha kısa bir metinle tekrar deneyin.</string>
     <string name="note_response_truncated">[Not: yanıt kesilmiş olabilir]</string>

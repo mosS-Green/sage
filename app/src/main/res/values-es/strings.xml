@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">Asistente SwiftSlate</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Asistente Sage</string>
     <string name="accessibility_service_desc">Proporciona reemplazos de texto con IA en todo el sistema al escribir comandos de activación.</string>
 
     <!-- Dashboard -->
@@ -88,8 +88,7 @@
     <string name="dashboard_no_data">—</string>
     <string name="dashboard_last_7_days">Últimos 7 días</string>
     <string name="settings_temperature_title">Temperatura</string>
-    <string name="settings_made_by">Hecho con amor por Musheer Alam</string>
-    <string name="settings_sponsor">Patrocinar en GitHub</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
 
     <!-- Toasts and errors -->
     <string name="toast_replace_failed">No se pudo reemplazar el texto</string>
@@ -105,7 +104,7 @@
     <string name="process_text_retry">Reintentar</string>
     <string name="process_text_copied">Copiado</string>
     <string name="process_text_no_selection">No hay texto seleccionado</string>
-    <string name="process_text_no_commands">No hay comandos disponibles. Añade uno en SwiftSlate.</string>
+    <string name="process_text_no_commands">No hay comandos disponibles. Añade uno en Sage.</string>
     <string name="toast_restore_failed">No se pudo restaurar el texto original</string>
     <string name="toast_nothing_to_undo">Nada que deshacer</string>
     <string name="toast_undo_failed">No se pudo deshacer</string>
@@ -129,8 +128,8 @@
 
     <!-- Updates and command descriptions -->
     <string name="update_channel_name">Actualizaciones de la app</string>
-    <string name="update_channel_desc">Notifica cuando hay una nueva versión de SwiftSlate disponible</string>
-    <string name="update_available_title">Actualización de SwiftSlate disponible</string>
+    <string name="update_channel_desc">Notifica cuando hay una nueva versión de Sage disponible</string>
+    <string name="update_available_title">Actualización de Sage disponible</string>
     <string name="update_available_text">Toca para ver la última versión</string>
     <string name="error_input_too_long">El texto es demasiado largo para el límite de tokens por minuto de este modelo. Vuelve a intentarlo con un texto más corto.</string>
     <string name="note_response_truncated">[Nota: la respuesta puede estar cortada]</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">Asisten SwiftSlate</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Asisten Sage</string>
     <string name="accessibility_service_desc">Menyediakan penggantian teks berbasis AI di seluruh sistem saat perintah pemicu diketik.</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">Ini akan mengganti semua perintah kustom Anda yang ada. Lanjutkan?</string>
     <string name="backup_import_cancel">Batal</string>
     <string name="settings_check_updates">Periksa pembaruan</string>
-    <string name="settings_made_by">Dibuat dengan cinta oleh Musheer Alam</string>
-    <string name="settings_sponsor">Sponsori di GitHub</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">Tutup</string>
     <string name="commands_expand">Buka</string>
     <string name="commands_search_hint">Cari perintah…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">Coba lagi</string>
     <string name="process_text_copied">Disalin</string>
     <string name="process_text_no_selection">Tidak ada teks yang dipilih</string>
-    <string name="process_text_no_commands">Tidak ada perintah yang tersedia. Tambahkan satu di SwiftSlate.</string>
+    <string name="process_text_no_commands">Tidak ada perintah yang tersedia. Tambahkan satu di Sage.</string>
     <string name="toast_restore_failed">Tidak dapat memulihkan teks asli</string>
     <string name="toast_nothing_to_undo">Tidak ada yang bisa dibatalkan</string>
     <string name="toast_undo_failed">Tidak dapat membatalkan</string>
@@ -130,8 +129,8 @@
 
     <!-- Updates -->
     <string name="update_channel_name">Pembaruan Aplikasi</string>
-    <string name="update_channel_desc">Memberi tahu saat versi baru SwiftSlate tersedia</string>
-    <string name="update_available_title">Pembaruan SwiftSlate tersedia</string>
+    <string name="update_channel_desc">Memberi tahu saat versi baru Sage tersedia</string>
+    <string name="update_available_title">Pembaruan Sage tersedia</string>
     <string name="update_available_text">Ketuk untuk melihat rilis terbaru</string>
     <string name="error_input_too_long">Teks terlalu panjang untuk batas token per menit model ini. Coba lagi dengan teks yang lebih pendek.</string>
     <string name="note_response_truncated">[Catatan: respons mungkin terpotong]</string>

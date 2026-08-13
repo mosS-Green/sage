@@ -1,0 +1,24 @@
+package com.mossgreen.sage.service
+
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
+import org.junit.Test
+
+class VoiceNoteScannerTest {
+
+    @Test
+    fun parseDurationToSeconds_validFormats() {
+        assertEquals(83L, VoiceNoteScanner.parseDurationToSeconds("01:23"))
+        assertEquals(45L, VoiceNoteScanner.parseDurationToSeconds("0:45"))
+        assertEquals(600L, VoiceNoteScanner.parseDurationToSeconds("10:00"))
+        assertEquals(0L, VoiceNoteScanner.parseDurationToSeconds("00:00"))
+    }
+
+    @Test
+    fun parseDurationToSeconds_invalidFormats() {
+        assertNull(VoiceNoteScanner.parseDurationToSeconds("invalid"))
+        assertNull(VoiceNoteScanner.parseDurationToSeconds("1:2:3"))
+        assertNull(VoiceNoteScanner.parseDurationToSeconds("ab:cd"))
+        assertNull(VoiceNoteScanner.parseDurationToSeconds(""))
+    }
+}

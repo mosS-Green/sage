@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">Асистент SwiftSlate</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Асистент Sage</string>
     <string name="accessibility_service_desc">Предоставя системни замествания на текст с изкуствен интелект, когато се въвеждат тригерни команди.</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">Това ще замени всичките ви съществуващи потребителски команди. Продължавате ли?</string>
     <string name="backup_import_cancel">Отказ</string>
     <string name="settings_check_updates">Проверка за актуализации</string>
-    <string name="settings_made_by">Направено с любов от Musheer Alam</string>
-    <string name="settings_sponsor">Спонсорирайте в GitHub</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">Свий</string>
     <string name="commands_expand">Разгъни</string>
     <string name="commands_search_hint">Търсене на команди…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">Повторен опит</string>
     <string name="process_text_copied">Копирано</string>
     <string name="process_text_no_selection">Няма избран текст</string>
-    <string name="process_text_no_commands">Няма налични команди. Добавете команда в SwiftSlate.</string>
+    <string name="process_text_no_commands">Няма налични команди. Добавете команда в Sage.</string>
     <string name="toast_restore_failed">Оригиналният текст не можа да бъде възстановен</string>
     <string name="toast_nothing_to_undo">Няма нищо за отмяна</string>
     <string name="toast_undo_failed">Отмяната беше неуспешна</string>
@@ -130,8 +129,8 @@
 
     <!-- Updates -->
     <string name="update_channel_name">Актуализации на приложението</string>
-    <string name="update_channel_desc">Известява, когато е налична нова версия на SwiftSlate</string>
-    <string name="update_available_title">Налична е актуализация на SwiftSlate</string>
+    <string name="update_channel_desc">Известява, когато е налична нова версия на Sage</string>
+    <string name="update_available_title">Налична е актуализация на Sage</string>
     <string name="update_available_text">Докоснете, за да видите последната версия</string>
 
     <!-- Command descriptions -->

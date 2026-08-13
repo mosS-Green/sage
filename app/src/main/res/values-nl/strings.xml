@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">SwiftSlate-assistent</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Sage-assistent</string>
     <string name="accessibility_service_desc">Biedt systeembrede AI-tekstvervangingen wanneer triggeropdrachten worden getypt.</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">Dit zal al uw bestaande aangepaste opdrachten vervangen. Doorgaan?</string>
     <string name="backup_import_cancel">Annuleren</string>
     <string name="settings_check_updates">Controleren op updates</string>
-    <string name="settings_made_by">Met liefde gemaakt door Musheer Alam</string>
-    <string name="settings_sponsor">Sponsor op GitHub</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">Inklappen</string>
     <string name="commands_expand">Uitklappen</string>
     <string name="commands_search_hint">Zoek opdrachten…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">Opnieuw proberen</string>
     <string name="process_text_copied">Gekopieerd</string>
     <string name="process_text_no_selection">Geen tekst geselecteerd</string>
-    <string name="process_text_no_commands">Geen opdrachten beschikbaar. Voeg er een toe in SwiftSlate.</string>
+    <string name="process_text_no_commands">Geen opdrachten beschikbaar. Voeg er een toe in Sage.</string>
     <string name="toast_restore_failed">Kon oorspronkelijke tekst niet herstellen</string>
     <string name="toast_nothing_to_undo">Niets om ongedaan te maken</string>
     <string name="toast_undo_failed">Kon niet ongedaan maken</string>
@@ -130,8 +129,8 @@
 
     <!-- Update notifications -->
     <string name="update_channel_name">App-updates</string>
-    <string name="update_channel_desc">Geeft een melding wanneer een nieuwe versie van SwiftSlate beschikbaar is</string>
-    <string name="update_available_title">SwiftSlate-update beschikbaar</string>
+    <string name="update_channel_desc">Geeft een melding wanneer een nieuwe versie van Sage beschikbaar is</string>
+    <string name="update_available_title">Sage-update beschikbaar</string>
     <string name="update_available_text">Tik om de nieuwste release te bekijken</string>
     <string name="error_input_too_long">De tekst is te lang voor de tokenlimiet per minuut van dit model. Probeer het opnieuw met kortere tekst.</string>
     <string name="note_response_truncated">[Let op: antwoord is mogelijk afgekapt]</string>

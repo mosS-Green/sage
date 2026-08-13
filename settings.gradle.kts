@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "SwiftSlate"
+rootProject.name = "Sage"
 include(":app")
 

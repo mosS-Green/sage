@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">ผู้ช่วย SwiftSlate</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">ผู้ช่วย Sage</string>
     <string name="accessibility_service_desc">ให้การแทนที่ข้อความด้วย AI ทั่วทั้งระบบเมื่อพิมพ์คำสั่งทริกเกอร์</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">การดำเนินการนี้จะแทนที่คำสั่งที่กำหนดเองที่มีอยู่ทั้งหมดของคุณ ดำเนินการต่อ?</string>
     <string name="backup_import_cancel">ยกเลิก</string>
     <string name="settings_check_updates">ตรวจสอบอัปเดต</string>
-    <string name="settings_made_by">สร้างด้วยความรักโดย Musheer Alam</string>
-    <string name="settings_sponsor">สนับสนุนบน GitHub</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">ยุบ</string>
     <string name="commands_expand">ขยาย</string>
     <string name="commands_search_hint">ค้นหาคำสั่ง…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">ลองอีกครั้ง</string>
     <string name="process_text_copied">คัดลอกแล้ว</string>
     <string name="process_text_no_selection">ไม่ได้เลือกข้อความ</string>
-    <string name="process_text_no_commands">ไม่มีคำสั่งที่ใช้ได้ เพิ่มคำสั่งใน SwiftSlate</string>
+    <string name="process_text_no_commands">ไม่มีคำสั่งที่ใช้ได้ เพิ่มคำสั่งใน Sage</string>
     <string name="toast_restore_failed">ไม่สามารถกู้คืนข้อความต้นฉบับได้</string>
     <string name="toast_nothing_to_undo">ไม่มีสิ่งที่จะเลิกทำ</string>
     <string name="toast_undo_failed">ไม่สามารถเลิกทำได้</string>
@@ -130,8 +129,8 @@
 
     <!-- Updates &amp; command descriptions -->
     <string name="update_channel_name">อัปเดตแอป</string>
-    <string name="update_channel_desc">แจ้งเตือนเมื่อมี SwiftSlate เวอร์ชันใหม่</string>
-    <string name="update_available_title">มีอัปเดต SwiftSlate</string>
+    <string name="update_channel_desc">แจ้งเตือนเมื่อมี Sage เวอร์ชันใหม่</string>
+    <string name="update_available_title">มีอัปเดต Sage</string>
     <string name="update_available_text">แตะเพื่อดูรุ่นล่าสุด</string>
     <string name="error_input_too_long">ข้อความยาวเกินขีดจำกัดโทเค็นต่อนาทีของโมเดลนี้ ลองอีกครั้งด้วยข้อความที่สั้นลง</string>
     <string name="note_response_truncated">[หมายเหตุ: คำตอบอาจถูกตัดจบ]</string>

@@ -5,9 +5,13 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage" />
 
     <application
-        android:name=".SwiftSlateApp"
+        android:name=".SageApp"
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:enableOnBackInvokedCallback="true"
@@ -17,13 +21,13 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SwiftSlate"
+        android:theme="@style/Theme.Sage"
         tools:targetApi="33">
         
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.SwiftSlate">
+            android:theme="@style/Theme.Sage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -40,7 +44,7 @@
             android:name=".ui.processtext.ProcessTextActivity"
             android:exported="true"
             android:excludeFromRecents="true"
-            android:theme="@style/Theme.SwiftSlate.Dialog">
+            android:theme="@style/Theme.Sage.Dialog">
             <intent-filter>
                 <action android:name="android.intent.action.PROCESS_TEXT" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -51,7 +55,7 @@
 
                 Some editors query ACTION_PROCESS_TEXT handlers themselves but never declare a
                 matching <queries> element, so on Android 11+ they cannot see this package at
-                all and SwiftSlate silently misses from their selection menu. Gmail is the
+                all and Sage silently misses from their selection menu. Gmail is the
                 worked example: its manifest declares <queries> for VIEW/BROWSABLE/https but
                 not for PROCESS_TEXT, so matching that filter is what makes this package
                 visible to it — verified with `dumpsys package com.google.android.gm`.

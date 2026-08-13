@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">Asystent SwiftSlate</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Asystent Sage</string>
     <string name="accessibility_service_desc">Zapewnia ogólnosystemowe zastępowanie tekstu za pomocą AI po wpisaniu poleceń wyzwalających.</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">Spowoduje to zastąpienie wszystkich istniejących poleceń niestandardowych. Kontynuować?</string>
     <string name="backup_import_cancel">Anuluj</string>
     <string name="settings_check_updates">Sprawdź aktualizacje</string>
-    <string name="settings_made_by">Wykonane z miłością przez Musheer Alam</string>
-    <string name="settings_sponsor">Sponsoruj na GitHub</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">Zwiń</string>
     <string name="commands_expand">Rozwiń</string>
     <string name="commands_search_hint">Szukaj poleceń…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">Spróbuj ponownie</string>
     <string name="process_text_copied">Skopiowano</string>
     <string name="process_text_no_selection">Nie wybrano tekstu</string>
-    <string name="process_text_no_commands">Brak dostępnych poleceń. Dodaj polecenie w SwiftSlate.</string>
+    <string name="process_text_no_commands">Brak dostępnych poleceń. Dodaj polecenie w Sage.</string>
     <string name="toast_restore_failed">Nie udało się przywrócić oryginalnego tekstu</string>
     <string name="toast_nothing_to_undo">Nie ma nic do cofnięcia</string>
     <string name="toast_undo_failed">Nie udało się cofnąć</string>
@@ -130,8 +129,8 @@
 
     <!-- Updates & command descriptions -->
     <string name="update_channel_name">Aktualizacje aplikacji</string>
-    <string name="update_channel_desc">Powiadamia, gdy dostępna jest nowa wersja SwiftSlate</string>
-    <string name="update_available_title">Dostępna aktualizacja SwiftSlate</string>
+    <string name="update_channel_desc">Powiadamia, gdy dostępna jest nowa wersja Sage</string>
+    <string name="update_available_title">Dostępna aktualizacja Sage</string>
     <string name="update_available_text">Dotknij, aby zobaczyć najnowszą wersję</string>
     <string name="error_input_too_long">Tekst jest zbyt długi dla limitu tokenów na minutę tego modelu. Spróbuj ponownie z krótszym tekstem.</string>
     <string name="note_response_truncated">[Uwaga: odpowiedź może być skrócona]</string>

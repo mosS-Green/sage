@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">SwiftSlate asistentas</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Sage asistentas</string>
     <string name="accessibility_service_desc">Teikia visos sistemos dirbtinio intelekto teksto pakeitimus, kai įvedamos aktyvinimo komandos.</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">Tai pakeis visas esamas pasirinktines komandas. Tęsti?</string>
     <string name="backup_import_cancel">Atšaukti</string>
     <string name="settings_check_updates">Tikrinti naujinimus</string>
-    <string name="settings_made_by">Sukurta su meile – Musheer Alam</string>
-    <string name="settings_sponsor">Remti GitHub platformoje</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">Suskleisti</string>
     <string name="commands_expand">Išskleisti</string>
     <string name="commands_search_hint">Ieškoti komandų…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">Bandyti dar kartą</string>
     <string name="process_text_copied">Nukopijuota</string>
     <string name="process_text_no_selection">Nepasirinktas tekstas</string>
-    <string name="process_text_no_commands">Nėra galimų komandų. Pridėkite komandą programoje „SwiftSlate“.</string>
+    <string name="process_text_no_commands">Nėra galimų komandų. Pridėkite komandą programoje „Sage“.</string>
     <string name="toast_restore_failed">Nepavyko atkurti pradinio teksto</string>
     <string name="toast_nothing_to_undo">Nėra ką anuliuoti</string>
     <string name="toast_undo_failed">Nepavyko anuliuoti</string>
@@ -130,8 +129,8 @@
 
     <!-- Update notifications -->
     <string name="update_channel_name">Programos naujiniai</string>
-    <string name="update_channel_desc">Praneša, kai yra nauja SwiftSlate versija</string>
-    <string name="update_available_title">Yra SwiftSlate naujinys</string>
+    <string name="update_channel_desc">Praneša, kai yra nauja Sage versija</string>
+    <string name="update_available_title">Yra Sage naujinys</string>
     <string name="update_available_text">Palieskite, kad peržiūrėtumėte naujausią leidimą</string>
     <string name="error_input_too_long">Tekstas per ilgas šio modelio žetonų per minutę ribai. Bandykite dar kartą su trumpesniu tekstu.</string>
     <string name="note_response_truncated">[Pastaba: atsakymas gali būti nutrūkęs]</string>

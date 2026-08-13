@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">Asistent SwiftSlate</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Asistent Sage</string>
     <string name="accessibility_service_desc">Poskytuje systémové náhrady textu pomocí AI, když zadáte spouštěcí příkazy.</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">Tím nahradíte všechny své stávající vlastní příkazy. Pokračovat?</string>
     <string name="backup_import_cancel">Zrušit</string>
     <string name="settings_check_updates">Zkontrolovat aktualizace</string>
-    <string name="settings_made_by">Vyrobeno s láskou Musheerem Alamem</string>
-    <string name="settings_sponsor">Sponzorujte na GitHubu</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">Sbalit</string>
     <string name="commands_expand">Rozbalit</string>
     <string name="commands_search_hint">Hledat příkazy…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">Zkusit znovu</string>
     <string name="process_text_copied">Zkopírováno</string>
     <string name="process_text_no_selection">Není vybrán žádný text</string>
-    <string name="process_text_no_commands">Nejsou k dispozici žádné příkazy. Přidejte jeden ve SwiftSlate.</string>
+    <string name="process_text_no_commands">Nejsou k dispozici žádné příkazy. Přidejte jeden ve Sage.</string>
     <string name="toast_restore_failed">Původní text se nepodařilo obnovit</string>
     <string name="toast_nothing_to_undo">Není co vrátit zpět</string>
     <string name="toast_undo_failed">Nepodařilo se vrátit zpět</string>
@@ -130,8 +129,8 @@
 
     <!-- Updates -->
     <string name="update_channel_name">Aktualizace aplikace</string>
-    <string name="update_channel_desc">Upozorní, když je k dispozici nová verze SwiftSlate</string>
-    <string name="update_available_title">K dispozici je aktualizace SwiftSlate</string>
+    <string name="update_channel_desc">Upozorní, když je k dispozici nová verze Sage</string>
+    <string name="update_available_title">K dispozici je aktualizace Sage</string>
     <string name="update_available_text">Klepnutím zobrazíte nejnovější verzi</string>
 
     <!-- Command descriptions -->

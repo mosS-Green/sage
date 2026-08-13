@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">Pembantu SwiftSlate</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Pembantu Sage</string>
     <string name="accessibility_service_desc">Menyediakan penggantian teks berasaskan AI di seluruh sistem apabila arahan pencetus ditaip.</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">Ini akan menggantikan semua arahan tersuai sedia ada anda. Teruskan?</string>
     <string name="backup_import_cancel">Batal</string>
     <string name="settings_check_updates">Semak kemas kini</string>
-    <string name="settings_made_by">Dibuat dengan kasih sayang oleh Musheer Alam</string>
-    <string name="settings_sponsor">Taja di GitHub</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">Runtuhkan</string>
     <string name="commands_expand">Kembangkan</string>
     <string name="commands_search_hint">Cari arahan…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">Cuba lagi</string>
     <string name="process_text_copied">Disalin</string>
     <string name="process_text_no_selection">Tiada teks dipilih</string>
-    <string name="process_text_no_commands">Tiada perintah tersedia. Tambah satu dalam SwiftSlate.</string>
+    <string name="process_text_no_commands">Tiada perintah tersedia. Tambah satu dalam Sage.</string>
     <string name="toast_restore_failed">Tidak dapat memulihkan teks asal</string>
     <string name="toast_nothing_to_undo">Tiada apa untuk dibuat asal</string>
     <string name="toast_undo_failed">Tidak dapat membuat asal</string>
@@ -130,8 +129,8 @@
 
     <!-- Update notifications -->
     <string name="update_channel_name">Kemas Kini Apl</string>
-    <string name="update_channel_desc">Memberitahu apabila versi baharu SwiftSlate tersedia</string>
-    <string name="update_available_title">Kemas kini SwiftSlate tersedia</string>
+    <string name="update_channel_desc">Memberitahu apabila versi baharu Sage tersedia</string>
+    <string name="update_available_title">Kemas kini Sage tersedia</string>
     <string name="update_available_text">Ketik untuk melihat keluaran terkini</string>
     <string name="error_input_too_long">Teks terlalu panjang untuk had token seminit model ini. Cuba lagi dengan teks yang lebih pendek.</string>
     <string name="note_response_truncated">[Nota: respons mungkin dipotong]</string>

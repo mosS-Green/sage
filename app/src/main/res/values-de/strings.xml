@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">SwiftSlate Assistent</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Sage Assistent</string>
     <string name="accessibility_service_desc">Bietet systemweite KI-Textersetzungen, wenn Auslösebefehle eingegeben werden.</string>
 
     <!-- Dashboard -->
@@ -88,8 +88,7 @@
     <string name="dashboard_no_data">—</string>
     <string name="dashboard_last_7_days">Letzte 7 Tage</string>
     <string name="settings_temperature_title">Temperatur</string>
-    <string name="settings_made_by">Mit Liebe gemacht von Musheer Alam</string>
-    <string name="settings_sponsor">Auf GitHub sponsern</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
 
     <!-- Toasts and errors -->
     <string name="toast_replace_failed">Text konnte nicht ersetzt werden</string>
@@ -105,7 +104,7 @@
     <string name="process_text_retry">Erneut versuchen</string>
     <string name="process_text_copied">Kopiert</string>
     <string name="process_text_no_selection">Kein Text ausgewählt</string>
-    <string name="process_text_no_commands">Keine Befehle verfügbar. Füge einen in SwiftSlate hinzu.</string>
+    <string name="process_text_no_commands">Keine Befehle verfügbar. Füge einen in Sage hinzu.</string>
     <string name="toast_restore_failed">Ursprünglicher Text konnte nicht wiederhergestellt werden</string>
     <string name="toast_nothing_to_undo">Nichts zum Rückgängigmachen</string>
     <string name="toast_undo_failed">Rückgängigmachen fehlgeschlagen</string>
@@ -129,8 +128,8 @@
 
     <!-- Updates -->
     <string name="update_channel_name">App-Updates</string>
-    <string name="update_channel_desc">Benachrichtigt, wenn eine neue Version von SwiftSlate verfügbar ist</string>
-    <string name="update_available_title">SwiftSlate-Update verfügbar</string>
+    <string name="update_channel_desc">Benachrichtigt, wenn eine neue Version von Sage verfügbar ist</string>
+    <string name="update_available_title">Sage-Update verfügbar</string>
     <string name="update_available_text">Tippe, um die neueste Version anzuzeigen</string>
 
     <!-- Command descriptions -->

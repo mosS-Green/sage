@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">SwiftSlate-assistent</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Sage-assistent</string>
     <string name="accessibility_service_desc">Gir systemdekkende AI-teksterstatninger når utløserkommandoer skrives.</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">Dette vil erstatte alle dine eksisterende egendefinerte kommandoer. Fortsette?</string>
     <string name="backup_import_cancel">Avbryt</string>
     <string name="settings_check_updates">Se etter oppdateringer</string>
-    <string name="settings_made_by">Laget med kjærlighet av Musheer Alam</string>
-    <string name="settings_sponsor">Sponsor på GitHub</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">Skjul</string>
     <string name="commands_expand">Vis</string>
     <string name="commands_search_hint">Søk etter kommandoer…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">Prøv igjen</string>
     <string name="process_text_copied">Kopiert</string>
     <string name="process_text_no_selection">Ingen tekst er valgt</string>
-    <string name="process_text_no_commands">Ingen kommandoer er tilgjengelige. Legg til en i SwiftSlate.</string>
+    <string name="process_text_no_commands">Ingen kommandoer er tilgjengelige. Legg til en i Sage.</string>
     <string name="toast_restore_failed">Kunne ikke gjenopprette den opprinnelige teksten</string>
     <string name="toast_nothing_to_undo">Ingenting å angre</string>
     <string name="toast_undo_failed">Kunne ikke angre</string>
@@ -130,8 +129,8 @@
 
     <!-- Update notifications -->
     <string name="update_channel_name">App-oppdateringer</string>
-    <string name="update_channel_desc">Varsler når en ny versjon av SwiftSlate er tilgjengelig</string>
-    <string name="update_available_title">SwiftSlate-oppdatering tilgjengelig</string>
+    <string name="update_channel_desc">Varsler når en ny versjon av Sage er tilgjengelig</string>
+    <string name="update_available_title">Sage-oppdatering tilgjengelig</string>
     <string name="update_available_text">Trykk for å se den nyeste utgivelsen</string>
     <string name="error_input_too_long">Teksten er for lang for denne modellens tokengrense per minutt. Prøv igjen med kortere tekst.</string>
     <string name="note_response_truncated">[Merk: svaret kan være avkuttet]</string>

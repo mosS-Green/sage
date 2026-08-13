@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SwiftSlate</string>
-    <string name="accessibility_service_label">Trợ lý SwiftSlate</string>
+    <string name="app_name">Sage</string>
+    <string name="accessibility_service_label">Trợ lý Sage</string>
     <string name="accessibility_service_desc">Cung cấp thay thế văn bản bằng AI trên toàn hệ thống khi nhập lệnh kích hoạt.</string>
 
     <!-- Dashboard -->
@@ -78,8 +78,7 @@
     <string name="backup_import_confirm">Thao tác này sẽ thay thế tất cả lệnh tùy chỉnh hiện có của bạn. Tiếp tục?</string>
     <string name="backup_import_cancel">Hủy</string>
     <string name="settings_check_updates">Kiểm tra cập nhật</string>
-    <string name="settings_made_by">Được tạo với tình yêu bởi Musheer Alam</string>
-    <string name="settings_sponsor">Tài trợ trên GitHub</string>
+    <string name="settings_made_by">Forked from Musheer360/SwiftSlate</string>
     <string name="commands_collapse">Thu gọn</string>
     <string name="commands_expand">Mở rộng</string>
     <string name="commands_search_hint">Tìm kiếm lệnh…</string>
@@ -106,7 +105,7 @@
     <string name="process_text_retry">Thử lại</string>
     <string name="process_text_copied">Đã sao chép</string>
     <string name="process_text_no_selection">Chưa chọn văn bản</string>
-    <string name="process_text_no_commands">Không có lệnh nào. Hãy thêm một lệnh trong SwiftSlate.</string>
+    <string name="process_text_no_commands">Không có lệnh nào. Hãy thêm một lệnh trong Sage.</string>
     <string name="toast_restore_failed">Không thể khôi phục văn bản gốc</string>
     <string name="toast_nothing_to_undo">Không có gì để hoàn tác</string>
     <string name="toast_undo_failed">Không thể hoàn tác</string>
@@ -130,8 +129,8 @@
 
     <!-- Updates &amp; command descriptions -->
     <string name="update_channel_name">Cập nhật ứng dụng</string>
-    <string name="update_channel_desc">Thông báo khi có phiên bản SwiftSlate mới</string>
-    <string name="update_available_title">Đã có bản cập nhật SwiftSlate</string>
+    <string name="update_channel_desc">Thông báo khi có phiên bản Sage mới</string>
+    <string name="update_available_title">Đã có bản cập nhật Sage</string>
     <string name="update_available_text">Nhấn để xem bản phát hành mới nhất</string>
     <string name="error_input_too_long">Văn bản quá dài so với giới hạn token mỗi phút của mô hình này. Hãy thử lại với văn bản ngắn hơn.</string>
     <string name="note_response_truncated">[Lưu ý: phản hồi có thể bị cắt]</string>
