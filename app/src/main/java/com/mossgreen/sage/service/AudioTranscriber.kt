@@ -39,7 +39,7 @@ object AudioTranscriber {
             return@withContext Result.failure(Exception("No API keys configured"))
         }
 
-        val key = keyManager.getKey()
+        val key = keyManager.getNextKey()
             ?: return@withContext Result.failure(Exception("All API keys are benched or invalid"))
 
         val fileBytes = try {
@@ -97,7 +97,6 @@ object AudioTranscriber {
                     if (parts != null && parts.length() > 0) {
                         val text = parts.getJSONObject(0).optString("text", "").trim()
                         if (text.isNotEmpty()) {
-                            keyManager.recordSuccess(key)
                             val formatted = formatParagraphs(text)
                             return@withContext Result.success(formatted)
                         }
@@ -107,7 +106,7 @@ object AudioTranscriber {
             } else {
                 val errorBody = ApiClientUtils.readErrorBody(connection)
                 if (responseCode == 429) {
-                    keyManager.markRateLimited(key)
+                    keyManager.reportRateLimit(key)
                 }
                 Result.failure(Exception("HTTP $responseCode: $errorBody"))
             }
