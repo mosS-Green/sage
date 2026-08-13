@@ -68,7 +68,7 @@ jobs:
             TAG="$GIT_REF_NAME"
             CREATE_TAG=false
           else
-            PATCH=$(git tag -l "v${BASE_VERSION}.*" | grep -v beta | sed "s/v${BASE_VERSION}\.//" | sort -n | tail -1)
+            PATCH=$(git tag -l "v${BASE_VERSION}.*" | (grep -v beta || true) | sed "s/v${BASE_VERSION}\.//" | sort -n | tail -1 || true)
             NEXT=$((${PATCH:--1} + 1))
             TAG="v${BASE_VERSION}.${NEXT}"
             CREATE_TAG=true
@@ -312,7 +312,7 @@ jobs:
           TAG: ${{ needs.version.outputs.tag }}
         run: |
           # Find previous tag
-          PREV_TAG=$(git tag -l 'v*' --sort=-version:refname | grep -v "^${TAG}$" | head -1)
+          PREV_TAG=$(git tag -l 'v*' --sort=-version:refname | (grep -v "^${TAG}$" || true) | head -1 || true)
           if [ -z "$PREV_TAG" ]; then
             RANGE="HEAD"
           else
@@ -320,8 +320,8 @@ jobs:
           fi
           # Generate changelog from commit messages, skip merge commits and CI noise
           CHANGELOG=$(git log "$RANGE" --pretty=format:"- %s" --no-merges \
-            | grep -iv "^- \(ci:\|merge\|changelog\|bump\|docs(fastlane)\)" \
-            | head -20)
+            | (grep -iv "^- \(ci:\|merge\|changelog\|bump\|docs(fastlane)\)" || true) \
+            | head -20 || true)
           if [ -z "$CHANGELOG" ]; then
             CHANGELOG="- Maintenance and bug fixes"
           fi
