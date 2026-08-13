@@ -1,13 +1,25 @@
 # Sage ProGuard Rules
 
 # Keep the accessibility service (instantiated by Android framework via reflection)
--keep class com.musheer360.sage.service.AssistantService { <init>(); }
+-keep class com.mossgreen.sage.service.AssistantService { <init>(); }
 
 # Keep enum values used in JSON serialization via CommandType.valueOf()
--keepclassmembers enum com.musheer360.sage.model.CommandType {
+-keepclassmembers enum com.mossgreen.sage.model.CommandType {
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
+
+# Rules for NewPipeExtractor
+-keep class org.schabi.newpipe.extractor.** { *; }
+-dontwarn org.schabi.newpipe.extractor.**
+
+# Rules for Rhino (used by NewPipeExtractor)
+-keep class org.mozilla.javascript.** { *; }
+-dontwarn org.mozilla.javascript.**
+
+# Rules for OkHttp
+-dontwarn okhttp3.**
+-dontwarn okio.**
 
 # Preserve line numbers for readable crash stack traces
 -keepattributes SourceFile,LineNumberTable

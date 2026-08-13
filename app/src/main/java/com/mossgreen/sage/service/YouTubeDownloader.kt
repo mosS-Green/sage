@@ -1,19 +1,75 @@
 package com.mossgreen.sage.service
 
 import com.mossgreen.sage.manager.StoragePermissionManager
-import org.json.JSONArray
-import org.json.JSONObject
+import okhttp3.OkHttpClient
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.schabi.newpipe.extractor.NewPipe
+import org.schabi.newpipe.extractor.ServiceList
+import org.schabi.newpipe.extractor.downloader.Downloader
+import org.schabi.newpipe.extractor.downloader.Request
+import org.schabi.newpipe.extractor.downloader.Response
+import org.schabi.newpipe.extractor.services.youtube.extractors.YoutubeStreamExtractor
 import java.io.File
 import java.io.FileOutputStream
-import java.io.InputStream
-import java.net.HttpURLConnection
-import java.net.URL
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicBoolean
 import java.util.regex.Pattern
 
 object YouTubeDownloader {
 
+    private val initialized = AtomicBoolean(false)
+    private val httpClient: OkHttpClient by lazy {
+        OkHttpClient.Builder()
+            .connectTimeout(20, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .followRedirects(true)
+            .build()
+    }
+
+    private class OkHttpDownloader(private val client: OkHttpClient) : Downloader() {
+        override fun execute(request: Request): Response {
+            val httpMethod = request.httpMethod()
+            val url = request.url()
+            val headers = request.headers()
+            val dataToSend = request.dataToSend()
+
+            val requestBody = if (dataToSend != null) {
+                dataToSend.toRequestBody(null)
+            } else if (httpMethod.equals("POST", ignoreCase = true)) {
+                ByteArray(0).toRequestBody(null)
+            } else {
+                null
+            }
+
+            val builder = okhttp3.Request.Builder()
+                .method(httpMethod, requestBody)
+                .url(url)
+
+            headers?.forEach { (name, values) ->
+                values.forEach { value -> builder.addHeader(name, value) }
+            }
+
+            val okHttpResponse = client.newCall(builder.build()).execute()
+            val responseBody = okHttpResponse.body?.string() ?: ""
+
+            return Response(
+                okHttpResponse.code,
+                okHttpResponse.message,
+                okHttpResponse.headers.toMultimap(),
+                responseBody,
+                okHttpResponse.request.url.toString()
+            )
+        }
+    }
+
+    private fun ensureInitialized() {
+        if (initialized.compareAndSet(false, true)) {
+            NewPipe.init(OkHttpDownloader(httpClient))
+        }
+    }
+
     private val YT_URL_PATTERN = Pattern.compile(
-        "(https?://)?(www\\.|music\\.)?(youtube\\.com/watch\\?v=|youtu\\.be/)[A-Za-z0-9_-]+[\\S]*",
+        "(https?://)?(www\\.|music\\.)?(youtube\\.com/(watch\\?v=|shorts/)|youtu\\.be/)[A-Za-z0-9_-]+[\\S]*",
         Pattern.CASE_INSENSITIVE
     )
 
@@ -31,87 +87,63 @@ object YouTubeDownloader {
     }
 
     /**
-     * Downloads YouTube video or audio using Cobalt API and saves to Downloads/sage/.
-     * Returns Result with downloaded filename or error string.
+     * Downloads YouTube video or audio directly using NewPipeExtractor and saves to Downloads/sage/.
+     * Returns Result with downloaded filename or error.
      */
     fun download(ytUrl: String): Result<String> {
         return try {
-            val isAudio = isAudioOnlyUrl(ytUrl)
-            val directDownloadUrl = fetchCobaltDownloadUrl(ytUrl, isAudio)
-                ?: return Result.failure(Exception("Could not obtain download link from Cobalt API"))
+            ensureInitialized()
 
+            val isAudio = isAudioOnlyUrl(ytUrl)
             val sageDir = StoragePermissionManager.getSageDownloadDir()
-            val fileExtension = if (isAudio) "mp3" else "mp4"
-            val fileName = "yt_${System.currentTimeMillis()}.$fileExtension"
+
+            var cleanUrl = ytUrl.trim()
+            if (!cleanUrl.startsWith("http://") && !cleanUrl.startsWith("https://")) {
+                cleanUrl = "https://$cleanUrl"
+            }
+
+            val extractor = ServiceList.YouTube.getStreamExtractor(cleanUrl) as YoutubeStreamExtractor
+            extractor.fetchPage()
+
+            val title = extractor.name?.replace(Regex("[^a-zA-Z0-9._-]"), "_")?.take(40)
+                ?: "yt_${System.currentTimeMillis()}"
+
+            val (directStreamUrl, fileExtension) = if (isAudio) {
+                val audioStream = extractor.audioStreams?.maxByOrNull { it.averageBitrate }
+                    ?: extractor.audioStreams?.firstOrNull()
+                    ?: return Result.failure(Exception("No audio streams found for video"))
+                val ext = when (audioStream.format?.name?.lowercase()) {
+                    "m4a" -> "m4a"
+                    "opus", "webm" -> "opus"
+                    else -> "mp3"
+                }
+                audioStream.content to ext
+            } else {
+                val videoStream = extractor.videoStreams?.firstOrNull()
+                    ?: extractor.videoOnlyStreams?.firstOrNull()
+                    ?: return Result.failure(Exception("No video streams found for video"))
+                val ext = if (videoStream.format?.name?.lowercase() == "webm") "webm" else "mp4"
+                videoStream.content to ext
+            }
+
+            val fileName = "${title}_${System.currentTimeMillis()}.$fileExtension"
             val outputFile = File(sageDir, fileName)
 
-            downloadFile(directDownloadUrl, outputFile)
+            downloadFile(directStreamUrl, outputFile)
             Result.success(outputFile.name)
         } catch (e: Exception) {
             Result.failure(e)
         }
     }
 
-    private fun fetchCobaltDownloadUrl(targetUrl: String, isAudio: Boolean): String? {
-        val apiConnection = URL("https://api.cobalt.tools/").openConnection() as HttpURLConnection
-        apiConnection.requestMethod = "POST"
-        apiConnection.setRequestProperty("Accept", "application/json")
-        apiConnection.setRequestProperty("Content-Type", "application/json")
-        apiConnection.connectTimeout = 15_000
-        apiConnection.readTimeout = 20_000
-        apiConnection.doOutput = true
-
-        val requestBody = JSONObject().apply {
-            put("url", targetUrl)
-            if (isAudio) {
-                put("downloadMode", "audio")
-                put("audioFormat", "mp3")
-            } else {
-                put("downloadMode", "auto")
-            }
-        }
-
-        apiConnection.outputStream.use { os ->
-            os.write(requestBody.toString().toByteArray(Charsets.UTF_8))
-        }
-
-        val responseCode = apiConnection.responseCode
-        if (responseCode !in 200..299) {
-            val errorStream = apiConnection.errorStream?.bufferedReader()?.use { it.readText() } ?: ""
-            throw Exception("Cobalt API HTTP $responseCode: $errorStream")
-        }
-
-        val responseText = apiConnection.inputStream.bufferedReader().use { it.readText() }
-        val json = JSONObject(responseText)
-
-        val status = json.optString("status")
-        if (status == "redirect" || status == "tunnel") {
-            return json.optString("url").takeIf { it.isNotEmpty() }
-        } else if (status == "picker") {
-            val pickerArray = json.optJSONArray("picker")
-            if (pickerArray != null && pickerArray.length() > 0) {
-                val item = pickerArray.getJSONObject(0)
-                return item.optString("url").takeIf { it.isNotEmpty() }
-            }
-        }
-
-        val errorObj = json.optJSONObject("error")
-        val errorMsg = errorObj?.optString("code") ?: "Unknown Cobalt status: $status"
-        throw Exception("Cobalt error: $errorMsg")
-    }
-
     private fun downloadFile(downloadUrl: String, outputFile: File) {
-        val conn = URL(downloadUrl).openConnection() as HttpURLConnection
-        conn.connectTimeout = 20_000
-        conn.readTimeout = 60_000
-        conn.instanceFollowRedirects = true
-        conn.connect()
-
-        if (conn.responseCode !in 200..299) {
-            throw Exception("File download failed HTTP ${conn.responseCode}")
+        val request = okhttp3.Request.Builder().url(downloadUrl).build()
+        val response = httpClient.newCall(request).execute()
+        if (!response.isSuccessful) {
+            throw Exception("Download stream failed HTTP ${response.code}")
         }
-
-        conn.inputStream.use { input ->
+        val body = response.body ?: throw Exception("Empty stream response body")
+        body.byteStream().use { input ->
             FileOutputStream(outputFile).use { output ->
                 input.copyTo(output)
             }

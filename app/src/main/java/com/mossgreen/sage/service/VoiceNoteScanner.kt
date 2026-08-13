@@ -27,6 +27,19 @@ object VoiceNoteScanner {
     }
 
     /**
+     * Extracts mm:ss or m:ss duration from anywhere in the text (e.g. "01:23" or "0:45").
+     */
+    fun extractDurationSeconds(text: String): Long? {
+        val regex = Regex("(\\d{1,2}:\\d{2})")
+        val matches = regex.findAll(text).toList()
+        if (matches.isNotEmpty()) {
+            val lastMatch = matches.last().value
+            return parseDurationToSeconds(lastMatch)
+        }
+        return null
+    }
+
+    /**
      * Scans the 5 latest voice note audio files and returns the one closest to [targetDurationSec].
      */
     fun findClosestVoiceNote(targetDurationSec: Long): File? {
