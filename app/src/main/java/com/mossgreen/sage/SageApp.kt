@@ -1,7 +1,10 @@
 package com.mossgreen.sage
 
 import android.app.Application
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
+import android.os.Build
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.NetworkType
@@ -23,6 +26,10 @@ class SageApp : Application() {
      */
     val keyManager: KeyManager by lazy { KeyManager(this) }
 
+    companion object {
+        const val CHANNEL_TRANSCRIPTION = "sage_transcription"
+    }
+
     override fun onCreate() {
         super.onCreate()
         // Pre-warm SharedPreferences — triggers async disk load so they're
@@ -32,7 +39,22 @@ class SageApp : Application() {
         getSharedPreferences("secure_keys_prefs", Context.MODE_PRIVATE)
         getSharedPreferences("stats", Context.MODE_PRIVATE)
 
+        createNotificationChannels()
         scheduleUpdateCheck()
+    }
+
+    private fun createNotificationChannels() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                CHANNEL_TRANSCRIPTION,
+                "Voice Note Transcriptions",
+                NotificationManager.IMPORTANCE_HIGH
+            ).apply {
+                description = "Transcriptions of WhatsApp voice notes"
+            }
+            val nm = getSystemService(NotificationManager::class.java)
+            nm.createNotificationChannel(channel)
+        }
     }
 
     private fun scheduleUpdateCheck() {

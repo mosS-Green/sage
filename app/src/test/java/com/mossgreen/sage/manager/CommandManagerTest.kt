@@ -126,7 +126,7 @@ class CommandManagerTest {
         commandManager.saveCustomCommand(Command("?myCmd", "do something"))
         val commands = commandManager.getCommands()
         assertEquals(18, commands.size)
-    }    assertTrue(commands.any { it.trigger == "?myCmd" })
+        assertTrue(commands.any { it.trigger == "?myCmd" })
     }
 
     @Test

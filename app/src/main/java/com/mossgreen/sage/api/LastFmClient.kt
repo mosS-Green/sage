@@ -84,6 +84,7 @@ class LastFmClient {
             val firstTrack = when (trackOpt) {
                 is JSONArray -> if (trackOpt.length() > 0) trackOpt.optJSONObject(0) else null
                 is JSONObject -> trackOpt
+                null -> null
                 else -> null
             } ?: return@withContext Result.failure(Exception("No scrobbled tracks found for $username"))
 

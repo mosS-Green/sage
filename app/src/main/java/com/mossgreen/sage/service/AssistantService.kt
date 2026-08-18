@@ -1242,6 +1242,8 @@ class AssistantService : AccessibilityService() {
                             delay(3000L - elapsed)
                         }
 
+                        postTranscribingNotification(voiceNote)
+
                         val result = withContext(Dispatchers.IO) {
                             AudioTranscriber.transcribe(voiceNote.file, keyManager)
                         }
@@ -1250,13 +1252,11 @@ class AssistantService : AccessibilityService() {
 
                         if (result.isSuccess) {
                             val transcribedContent = result.getOrThrow()
-                            val formattedReply = buildString {
-                                append("`").append(voiceNote.username).append("` In `").append(voiceNote.chatName).append("`\n")
-                                append("Duration - `").append(voiceNote.formattedDuration).append("`\n")
-                                append("Timestamp - `").append(voiceNote.formattedTimestamp).append("`\n\n")
-                                append(transcribedContent)
-                            }
-                            typeAutoTranscriptionInWhatsApp(formattedReply)
+                            val formattedReply = "${voiceNote.username} at ${voiceNote.formattedTimestamp}:\n> $transcribedContent"
+                            postTranscriptionNotification(voiceNote, formattedReply)
+                        } else {
+                            val errMsg = result.exceptionOrNull()?.message ?: "Transcription failed"
+                            postTranscriptionErrorNotification(voiceNote, errMsg)
                         }
                     }
                 } catch (e: CancellationException) {
@@ -1268,50 +1268,102 @@ class AssistantService : AccessibilityService() {
         }
     }
 
-    private fun typeAutoTranscriptionInWhatsApp(replyText: String) {
-        serviceScope.launch(Dispatchers.Main) {
-            try {
-                val rootNode = rootInActiveWindow
-                val pkg = rootNode?.packageName?.toString() ?: ""
-                val isWhatsApp = pkg == "com.whatsapp" || pkg == "com.whatsapp.w4b"
+    private var transcriptionNotificationCounter = 0
 
-                var targetField: AccessibilityNodeInfo? = null
-                if (isWhatsApp && rootNode != null) {
-                    val matchingNodes = rootNode.findAccessibilityNodeInfosByViewId("com.whatsapp:id/entry")
-                    if (!matchingNodes.isNullOrEmpty()) {
-                        targetField = matchingNodes[0]
-                    } else {
-                        targetField = findEditableNode(rootNode)
-                    }
-                }
-
-                if (targetField != null) {
-                    val replaced = replaceText(targetField, replyText)
-                    if (replaced) {
-                        performHapticFeedback(HapticFeedbackConstants.CONFIRM)
-                    }
-                } else {
-                    val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                    clipboard.setPrimaryClip(ClipData.newPlainText("WhatsApp Transcription", replyText))
-                    overlayToast.show("Voice note transcribed & copied to clipboard")
-                }
-            } catch (e: Exception) {
-                Log.w(TAG, "failed to type auto transcription in whatsapp", e)
-            }
-        }
+    private fun notificationIdForVoiceNote(voiceNote: DetectedVoiceNote): Int {
+        return voiceNote.file.absolutePath.hashCode()
     }
 
-    private fun findEditableNode(root: AccessibilityNodeInfo?): AccessibilityNodeInfo? {
-        if (root == null) return null
-        if (root.isEditable || root.className?.toString()?.contains("EditText", ignoreCase = true) == true) {
-            return root
+    private fun postTranscribingNotification(voiceNote: DetectedVoiceNote) {
+        val nm = getSystemService(Context.NOTIFICATION_SERVICE) as android.app.NotificationManager
+        val notificationId = notificationIdForVoiceNote(voiceNote)
+
+        val title = "⚙️ Transcribing — ${voiceNote.username}"
+        val content = voiceNote.file.name
+
+        val builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            android.app.Notification.Builder(this, SageApp.CHANNEL_TRANSCRIPTION)
+        } else {
+            @Suppress("DEPRECATION")
+            android.app.Notification.Builder(this)
         }
-        for (i in 0 until root.childCount) {
-            val child = root.getChild(i) ?: continue
-            val found = findEditableNode(child)
-            if (found != null) return found
+
+        val notification = builder
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentTitle(title)
+            .setContentText(content)
+            .setAutoCancel(false)
+            .setOngoing(true)
+            .build()
+
+        nm.notify(notificationId, notification)
+    }
+
+    private fun postTranscriptionNotification(voiceNote: DetectedVoiceNote, formattedText: String) {
+        val nm = getSystemService(Context.NOTIFICATION_SERVICE) as android.app.NotificationManager
+        val notificationId = notificationIdForVoiceNote(voiceNote)
+
+        val title = "📝 ${voiceNote.username} at ${voiceNote.formattedTimestamp}"
+
+        // Copy action
+        val copyIntent = android.content.Intent(CopyTranscriptionReceiver.ACTION_COPY).apply {
+            setPackage(packageName)
+            putExtra(CopyTranscriptionReceiver.EXTRA_TEXT, formattedText)
+            putExtra(CopyTranscriptionReceiver.EXTRA_NOTIFICATION_ID, notificationId)
         }
-        return null
+        val copyPendingIntent = android.app.PendingIntent.getBroadcast(
+            this,
+            notificationId,
+            copyIntent,
+            android.app.PendingIntent.FLAG_UPDATE_CURRENT or android.app.PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            android.app.Notification.Builder(this, SageApp.CHANNEL_TRANSCRIPTION)
+        } else {
+            @Suppress("DEPRECATION")
+            android.app.Notification.Builder(this)
+        }
+
+        val notification = builder
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentTitle(title)
+            .setContentText(formattedText)
+            .setStyle(android.app.Notification.BigTextStyle().bigText(formattedText))
+            .addAction(
+                android.app.Notification.Action.Builder(
+                    null, "Copy", copyPendingIntent
+                ).build()
+            )
+            .setAutoCancel(true)
+            .setOngoing(false)
+            .build()
+
+        nm.notify(notificationId, notification)
+    }
+
+    private fun postTranscriptionErrorNotification(voiceNote: DetectedVoiceNote, errorMsg: String) {
+        val nm = getSystemService(Context.NOTIFICATION_SERVICE) as android.app.NotificationManager
+        val notificationId = notificationIdForVoiceNote(voiceNote)
+
+        val title = "❌ Transcription Error — ${voiceNote.username}"
+
+        val builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            android.app.Notification.Builder(this, SageApp.CHANNEL_TRANSCRIPTION)
+        } else {
+            @Suppress("DEPRECATION")
+            android.app.Notification.Builder(this)
+        }
+
+        val notification = builder
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentTitle(title)
+            .setContentText(errorMsg)
+            .setAutoCancel(true)
+            .setOngoing(false)
+            .build()
+
+        nm.notify(notificationId, notification)
     }
 
     override fun onInterrupt() {

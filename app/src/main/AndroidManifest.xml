@@ -86,6 +86,14 @@
                 android:name="android.accessibilityservice"
                 android:resource="@xml/accessibility_service_config" />
         </service>
+
+        <receiver
+            android:name=".service.CopyTranscriptionReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.mossgreen.sage.COPY_TRANSCRIPTION" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

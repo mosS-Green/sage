@@ -1,5 +1,10 @@
 package com.mossgreen.sage.ui
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -13,13 +18,16 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
 import com.mossgreen.sage.R
 import com.mossgreen.sage.manager.MonitoredChatsManager
+import com.mossgreen.sage.manager.StoragePermissionManager
 import com.mossgreen.sage.ui.components.ScreenTitle
 import com.mossgreen.sage.ui.components.SlateCard
 import com.mossgreen.sage.ui.components.SlateItemCard
@@ -30,11 +38,30 @@ fun MonitoredChatsScreen(
     manager: MonitoredChatsManager,
     onBack: () -> Unit
 ) {
+    val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
     var isEnabled by remember { mutableStateOf(manager.isEnabled()) }
     var chats by remember { mutableStateOf(manager.getMonitoredChats()) }
     var newChatName by rememberSaveable { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf<String?>(null) }
+
+    var hasStoragePerm by remember { mutableStateOf(StoragePermissionManager.hasStoragePermission(context)) }
+    var hasNotifPerm by remember {
+        mutableStateOf(
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
+            } else true
+        )
+    }
+
+    val permLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) {
+        hasStoragePerm = StoragePermissionManager.hasStoragePermission(context)
+        hasNotifPerm = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
+        } else true
+    }
 
     Column(
         modifier = Modifier
@@ -99,6 +126,46 @@ fun MonitoredChatsScreen(
                         uncheckedTrackColor = MaterialTheme.colorScheme.surfaceVariant
                     )
                 )
+            }
+        }
+
+        if (!hasStoragePerm || !hasNotifPerm) {
+            Spacer(modifier = Modifier.height(12.dp))
+            SlateCard {
+                Text(
+                    text = "Permissions Required",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = MaterialTheme.colorScheme.error
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "Storage permission is needed to read WhatsApp voice notes and Notification permission is needed to deliver transcriptions.",
+                    fontSize = 12.sp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Button(
+                    onClick = {
+                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                        val perms = mutableListOf<String>()
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                            if (!hasNotifPerm) perms.add(Manifest.permission.POST_NOTIFICATIONS)
+                            if (!hasStoragePerm) perms.add(Manifest.permission.READ_MEDIA_AUDIO)
+                        } else {
+                            if (!hasStoragePerm) perms.add(Manifest.permission.READ_EXTERNAL_STORAGE)
+                        }
+                        if (perms.isNotEmpty()) {
+                            permLauncher.launch(perms.toTypedArray())
+                        } else {
+                            StoragePermissionManager.requestStoragePermission(context)
+                        }
+                    },
+                    shape = RoundedCornerShape(10.dp),
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 44.dp)
+                ) {
+                    Text("Grant Permissions")
+                }
             }
         }
 
