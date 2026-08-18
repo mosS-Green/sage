@@ -1,0 +1,2 @@
+- fix(tests): fix syntax error in CommandManagerTest & LastFmClient when exhaustiveness warning feat(transcribe): switch auto-transcription to notification-based delivery with Copy button and User at hh:mm:ss format
+- feat: add ?rn command for Last.fm now playing & scrobbles with custom name/verb formatting and settings UI
