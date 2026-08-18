@@ -32,6 +32,7 @@ import com.mossgreen.sage.manager.CommandManager
 import com.mossgreen.sage.model.GeminiModels
 import com.mossgreen.sage.model.GroqModels
 import com.mossgreen.sage.model.PrefKeys
+import com.mossgreen.sage.manager.MonitoredChatsManager
 import com.mossgreen.sage.model.ProviderType
 import com.mossgreen.sage.provider.EndpointValidator
 import com.mossgreen.sage.ui.components.ScreenTitle
@@ -41,7 +42,12 @@ import com.mossgreen.sage.ui.components.SlateTextField
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(commandManager: CommandManager, prefs: SharedPreferences) {
+fun SettingsScreen(
+    commandManager: CommandManager,
+    prefs: SharedPreferences,
+    monitoredChatsManager: MonitoredChatsManager = remember { MonitoredChatsManager(LocalContext.current) },
+    onNavigateToMonitoredChats: () -> Unit = {}
+) {
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
     val uriHandler = LocalUriHandler.current
@@ -438,7 +444,51 @@ fun SettingsScreen(commandManager: CommandManager, prefs: SharedPreferences) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Card 3: Backup
+        // Card 3: Voice Note Auto-Transcription
+        SlateCard {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                        onNavigateToMonitoredChats()
+                    },
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(modifier = Modifier.weight(1f).padding(end = 12.dp)) {
+                    Text(
+                        text = stringResource(R.string.auto_transcribe_title),
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    Spacer(modifier = Modifier.height(2.dp))
+                    val isEnabled = monitoredChatsManager.isEnabled()
+                    val chats = monitoredChatsManager.getMonitoredChats()
+                    val statusText = when {
+                        !isEnabled -> stringResource(R.string.auto_transcribe_status_disabled)
+                        chats.isEmpty() -> stringResource(R.string.auto_transcribe_status_enabled_all)
+                        else -> stringResource(R.string.auto_transcribe_status_enabled, chats.size)
+                    }
+                    Text(
+                        text = statusText,
+                        fontSize = 13.sp,
+                        color = if (isEnabled) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+                Text(
+                    text = "↗",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        // Card 4: Backup
         SlateCard {
             Text(
                 text = stringResource(R.string.backup_desc),

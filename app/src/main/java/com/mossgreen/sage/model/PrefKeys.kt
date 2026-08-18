@@ -30,4 +30,10 @@ object PrefKeys {
 
     /** Epoch millis when structured output was last disabled (0 = never). */
     const val STRUCTURED_OUTPUT_DISABLED_AT = "structured_output_disabled_at"
+
+    /** Master toggle for WhatsApp voice note auto-transcription (Boolean). */
+    const val AUTO_TRANSCRIBE_ENABLED = "auto_transcribe_enabled"
+
+    /** JSON string array of WhatsApp chat names to monitor (empty = monitor all). */
+    const val MONITORED_CHATS = "monitored_chats"
 }

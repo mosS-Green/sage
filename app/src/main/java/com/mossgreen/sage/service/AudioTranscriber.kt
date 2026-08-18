@@ -74,9 +74,15 @@ object AudioTranscriber {
                                 })
                             })
                             put(JSONObject().apply {
-                                put("text", "Transcribe this voice note audio accurately. Output only the verbatim transcribed text, nothing else.")
+                                put("text", "Transcribe this audio exactly as spoken. Do not translate it. The speech may be Hindi, English, Hinglish, or a mixture of Hindi and English. Write Hindi and other non-English speech using Latin/English characters (Romanized script), not Devanagari or other native scripts. Preserve English words as English. Do not paraphrase, summarize, correct wording, or add explanations. Return only the exact transcription.")
                             })
                         })
+                    })
+                })
+                put("generationConfig", JSONObject().apply {
+                    put("temperature", 0.1)
+                    put("thinkingConfig", JSONObject().apply {
+                        put("thinkingLevel", "minimal")
                     })
                 })
             }

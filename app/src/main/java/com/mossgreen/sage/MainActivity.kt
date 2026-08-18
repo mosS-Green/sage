@@ -33,6 +33,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.mossgreen.sage.ui.CommandsScreen
 import com.mossgreen.sage.ui.DashboardScreen
 import com.mossgreen.sage.ui.KeysScreen
+import com.mossgreen.sage.ui.MonitoredChatsScreen
 import com.mossgreen.sage.ui.SettingsScreen
 import com.mossgreen.sage.ui.theme.SageTheme
 
@@ -60,6 +61,7 @@ fun SageMainScreen(vm: SageViewModel = viewModel()) {
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
     var selectedTab by rememberSaveable { mutableStateOf(Tab.Dashboard) }
+    var showMonitoredChats by rememberSaveable { mutableStateOf(false) }
 
     // Request notification permission on first launch (Android 13+)
     val permissionLauncher = rememberLauncherForActivityResult(
@@ -100,6 +102,7 @@ fun SageMainScreen(vm: SageViewModel = viewModel()) {
                             if (selectedTab != tab) {
                                 haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                                 selectedTab = tab
+                                showMonitoredChats = false
                             }
                         },
                         colors = NavigationBarItemDefaults.colors(
@@ -119,7 +122,21 @@ fun SageMainScreen(vm: SageViewModel = viewModel()) {
                         Tab.Dashboard -> DashboardScreen(vm.keyManager, vm.commandManager, vm.statsManager)
                         Tab.Keys -> KeysScreen(vm.keyManager, vm.prefs)
                         Tab.Commands -> CommandsScreen(vm.commandManager)
-                        Tab.Settings -> SettingsScreen(vm.commandManager, vm.prefs)
+                        Tab.Settings -> {
+                            if (showMonitoredChats) {
+                                MonitoredChatsScreen(
+                                    manager = vm.monitoredChatsManager,
+                                    onBack = { showMonitoredChats = false }
+                                )
+                            } else {
+                                SettingsScreen(
+                                    commandManager = vm.commandManager,
+                                    prefs = vm.prefs,
+                                    monitoredChatsManager = vm.monitoredChatsManager,
+                                    onNavigateToMonitoredChats = { showMonitoredChats = true }
+                                )
+                            }
+                        }
                     }
                 }
             }

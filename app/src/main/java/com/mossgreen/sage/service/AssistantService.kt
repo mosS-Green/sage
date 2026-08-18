@@ -20,6 +20,7 @@ import com.mossgreen.sage.api.GeminiClient
 import com.mossgreen.sage.api.OpenAICompatibleClient
 import com.mossgreen.sage.manager.CommandManager
 import com.mossgreen.sage.manager.KeyManager
+import com.mossgreen.sage.manager.MonitoredChatsManager
 import com.mossgreen.sage.manager.StatsManager
 import com.mossgreen.sage.manager.StoragePermissionManager
 import com.mossgreen.sage.model.Command
@@ -51,6 +52,8 @@ class AssistantService : AccessibilityService() {
     private lateinit var keyManager: KeyManager
     private lateinit var commandManager: CommandManager
     private lateinit var statsManager: StatsManager
+    private lateinit var monitoredChatsManager: MonitoredChatsManager
+    private val voiceNoteDetector = WhatsAppVoiceNoteDetector()
     private val client = GeminiClient()
     private val openAIClient = OpenAICompatibleClient()
     private val serviceJob = SupervisorJob()
@@ -71,6 +74,8 @@ class AssistantService : AccessibilityService() {
     @Volatile
     private var currentJob: Job? = null
     private var processingResetRunnable: Runnable? = null
+    private var autoTranscribeJob: Job? = null
+    private var lastAutoTranscribeTime = 0L
     // Intentionally single-level undo (toggle between current and previous text).
     // Tracks the source node's identity to prevent cross-field undo corruption.
     @Volatile
@@ -119,7 +124,9 @@ class AssistantService : AccessibilityService() {
         keyManager = (applicationContext as SageApp).keyManager
         commandManager = CommandManager(applicationContext)
         statsManager = StatsManager(applicationContext)
+        monitoredChatsManager = MonitoredChatsManager(applicationContext)
         updateTriggers()
+        startAutoTranscribeLoop()
     }
 
     private fun updateTriggers() {
@@ -180,7 +187,14 @@ class AssistantService : AccessibilityService() {
     }
 
     private fun handleAccessibilityEvent(event: AccessibilityEvent?) {
-        if (event?.eventType != AccessibilityEvent.TYPE_VIEW_TEXT_CHANGED) return
+        if (event == null) return
+
+        if (event.eventType == AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED) {
+            voiceNoteDetector.onNotificationEvent(event)
+            return
+        }
+
+        if (event.eventType != AccessibilityEvent.TYPE_VIEW_TEXT_CHANGED) return
         if (event.packageName?.toString() == packageName) return
         if (!::keyManager.isInitialized) return
 
@@ -1119,7 +1133,105 @@ class AssistantService : AccessibilityService() {
         }
     }
 
+    private fun startAutoTranscribeLoop() {
+        autoTranscribeJob?.cancel()
+        autoTranscribeJob = serviceScope.launch {
+            while (isActive) {
+                try {
+                    delay(1000)
+                    if (!::monitoredChatsManager.isInitialized) continue
+                    if (!monitoredChatsManager.isEnabled()) continue
+                    if (!StoragePermissionManager.hasStoragePermission(applicationContext)) continue
+
+                    val detectedList = withContext(Dispatchers.IO) {
+                        voiceNoteDetector.scanForNewVoiceNotes()
+                    }
+
+                    for (voiceNote in detectedList) {
+                        if (!isActive) break
+                        if (!monitoredChatsManager.isMonitored(voiceNote.chatName)) continue
+
+                        // 3-second break between transcriptions
+                        val now = System.currentTimeMillis()
+                        val elapsed = now - lastAutoTranscribeTime
+                        if (elapsed < 3000L) {
+                            delay(3000L - elapsed)
+                        }
+
+                        val result = withContext(Dispatchers.IO) {
+                            AudioTranscriber.transcribe(voiceNote.file, keyManager)
+                        }
+
+                        lastAutoTranscribeTime = System.currentTimeMillis()
+
+                        if (result.isSuccess) {
+                            val transcribedContent = result.getOrThrow()
+                            val formattedReply = buildString {
+                                append("`").append(voiceNote.username).append("` In `").append(voiceNote.chatName).append("`\n")
+                                append("Duration - `").append(voiceNote.formattedDuration).append("`\n")
+                                append("Timestamp - `").append(voiceNote.formattedTimestamp).append("`\n\n")
+                                append(transcribedContent)
+                            }
+                            typeAutoTranscriptionInWhatsApp(formattedReply)
+                        }
+                    }
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (e: Exception) {
+                    Log.w(TAG, "error in auto transcribe loop", e)
+                }
+            }
+        }
+    }
+
+    private fun typeAutoTranscriptionInWhatsApp(replyText: String) {
+        serviceScope.launch(Dispatchers.Main) {
+            try {
+                val rootNode = rootInActiveWindow
+                val pkg = rootNode?.packageName?.toString() ?: ""
+                val isWhatsApp = pkg == "com.whatsapp" || pkg == "com.whatsapp.w4b"
+
+                var targetField: AccessibilityNodeInfo? = null
+                if (isWhatsApp && rootNode != null) {
+                    val matchingNodes = rootNode.findAccessibilityNodeInfosByViewId("com.whatsapp:id/entry")
+                    if (!matchingNodes.isNullOrEmpty()) {
+                        targetField = matchingNodes[0]
+                    } else {
+                        targetField = findEditableNode(rootNode)
+                    }
+                }
+
+                if (targetField != null) {
+                    val replaced = replaceText(targetField, replyText)
+                    if (replaced) {
+                        performHapticFeedback(HapticFeedbackConstants.CONFIRM)
+                    }
+                } else {
+                    val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    clipboard.setPrimaryClip(ClipData.newPlainText("WhatsApp Transcription", replyText))
+                    overlayToast.show("Voice note transcribed & copied to clipboard")
+                }
+            } catch (e: Exception) {
+                Log.w(TAG, "failed to type auto transcription in whatsapp", e)
+            }
+        }
+    }
+
+    private fun findEditableNode(root: AccessibilityNodeInfo?): AccessibilityNodeInfo? {
+        if (root == null) return null
+        if (root.isEditable || root.className?.toString()?.contains("EditText", ignoreCase = true) == true) {
+            return root
+        }
+        for (i in 0 until root.childCount) {
+            val child = root.getChild(i) ?: continue
+            val found = findEditableNode(child)
+            if (found != null) return found
+        }
+        return null
+    }
+
     override fun onInterrupt() {
+        autoTranscribeJob?.cancel()
         flushPendingClipRestore()
         isProcessing.set(false)
         currentJob?.cancel()
@@ -1134,6 +1246,7 @@ class AssistantService : AccessibilityService() {
 
     override fun onDestroy() {
         super.onDestroy()
+        autoTranscribeJob?.cancel()
         flushPendingClipRestore()
         isProcessing.set(false)
         lastReplacedText = null

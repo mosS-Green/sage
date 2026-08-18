@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.AndroidViewModel
 import com.mossgreen.sage.manager.CommandManager
+import com.mossgreen.sage.manager.MonitoredChatsManager
 import com.mossgreen.sage.manager.StatsManager
 
 class SageViewModel(application: Application) : AndroidViewModel(application) {
@@ -12,4 +13,5 @@ class SageViewModel(application: Application) : AndroidViewModel(application) {
     val keyManager = (application as SageApp).keyManager
     val commandManager = CommandManager(application)
     val statsManager = StatsManager(application)
+    val monitoredChatsManager = MonitoredChatsManager(application)
 }

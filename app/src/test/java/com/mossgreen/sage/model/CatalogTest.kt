@@ -69,8 +69,9 @@ class CatalogTest {
 
     @Test
     fun gemini_thinkingLevel_for_catalog_null_for_unknown() {
-        // flash-lite uses "low", flash uses "minimal"
-        assertEquals("low", GeminiModels.thinkingLevel("gemini-3.5-flash-lite"))
+        // all models use "minimal" per user requirement
+        assertEquals("minimal", GeminiModels.thinkingLevel("gemini-3.1-flash-lite"))
+        assertEquals("minimal", GeminiModels.thinkingLevel("gemini-3.5-flash-lite"))
         assertEquals("minimal", GeminiModels.thinkingLevel("gemini-3.6-flash"))
         assertNull(GeminiModels.thinkingLevel("gemini-9-ultra"))
     }

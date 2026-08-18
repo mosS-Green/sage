@@ -145,4 +145,18 @@
     <string name="storage_permission_desc">Required to create Downloads/sage folder and read WhatsApp voice notes.</string>
     <string name="storage_permission_grant">Grant Access</string>
 
+    <!-- Voice Note Auto-Transcription -->
+    <string name="auto_transcribe_title">Voice Note Auto-Transcription</string>
+    <string name="auto_transcribe_desc">Auto-transcribe incoming WhatsApp voice notes and prepare reply in chat.</string>
+    <string name="auto_transcribe_status_enabled">Enabled (%1$d chats monitored)</string>
+    <string name="auto_transcribe_status_enabled_all">Enabled (All chats monitored)</string>
+    <string name="auto_transcribe_status_disabled">Disabled</string>
+    <string name="monitored_chats_title">Monitored Chats</string>
+    <string name="monitored_chats_subtitle">Only transcribe voice notes from these chats. Leave empty to monitor all chats.</string>
+    <string name="monitored_chats_add_hint">Chat name (e.g. John Doe, Project Group)</string>
+    <string name="monitored_chats_add_btn">Add</string>
+    <string name="monitored_chats_empty">No specific chats added. All WhatsApp voice notes will be transcribed.</string>
+    <string name="monitored_chats_delete_desc">Remove chat</string>
+    <string name="monitored_chats_back_desc">Back to Settings</string>
+
 </resources>
