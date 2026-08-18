@@ -74,7 +74,7 @@ class ProviderConfigTest {
     @Test
     fun gemini_config_coerces_model_and_exposes_thinking_level() {
         assertEquals(GeminiModels.DEFAULT, GeminiConfig.sanitizeModel("gemini-2.5-flash-lite"))
-        assertEquals("low", GeminiConfig.thinkingLevel(GeminiModels.DEFAULT))
+        assertEquals("minimal", GeminiConfig.thinkingLevel(GeminiModels.DEFAULT))
     }
 
     @Test

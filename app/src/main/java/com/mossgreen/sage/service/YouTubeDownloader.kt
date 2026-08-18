@@ -105,7 +105,7 @@ object YouTubeDownloader {
             val extractor = ServiceList.YouTube.getStreamExtractor(cleanUrl) as YoutubeStreamExtractor
             extractor.fetchPage()
 
-            val title = extractor.name?.replace(Regex("[^a-zA-Z0-9._-]"), "_")?.take(40)
+            val title = extractor.name?.let { it.replace(Regex("[^a-zA-Z0-9._-]"), "_").take(40) }
                 ?: "yt_${System.currentTimeMillis()}"
 
             val (directStreamUrl, fileExtension) = if (isAudio) {
