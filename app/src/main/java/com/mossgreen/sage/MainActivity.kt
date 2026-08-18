@@ -133,6 +133,7 @@ fun SageMainScreen(vm: SageViewModel = viewModel()) {
                                     commandManager = vm.commandManager,
                                     prefs = vm.prefs,
                                     monitoredChatsManager = vm.monitoredChatsManager,
+                                    lastFmManager = vm.lastFmManager,
                                     onNavigateToMonitoredChats = { showMonitoredChats = true }
                                 )
                             }

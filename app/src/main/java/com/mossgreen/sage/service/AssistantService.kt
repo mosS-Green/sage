@@ -17,9 +17,11 @@ import android.view.HapticFeedbackConstants
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import com.mossgreen.sage.api.GeminiClient
+import com.mossgreen.sage.api.LastFmClient
 import com.mossgreen.sage.api.OpenAICompatibleClient
 import com.mossgreen.sage.manager.CommandManager
 import com.mossgreen.sage.manager.KeyManager
+import com.mossgreen.sage.manager.LastFmManager
 import com.mossgreen.sage.manager.MonitoredChatsManager
 import com.mossgreen.sage.manager.StatsManager
 import com.mossgreen.sage.manager.StoragePermissionManager
@@ -53,6 +55,8 @@ class AssistantService : AccessibilityService() {
     private lateinit var commandManager: CommandManager
     private lateinit var statsManager: StatsManager
     private lateinit var monitoredChatsManager: MonitoredChatsManager
+    private lateinit var lastFmManager: LastFmManager
+    private val lastFmClient = LastFmClient()
     private val voiceNoteDetector = WhatsAppVoiceNoteDetector()
     private val client = GeminiClient()
     private val openAIClient = OpenAICompatibleClient()
@@ -125,6 +129,7 @@ class AssistantService : AccessibilityService() {
         commandManager = CommandManager(applicationContext)
         statsManager = StatsManager(applicationContext)
         monitoredChatsManager = MonitoredChatsManager(applicationContext)
+        lastFmManager = LastFmManager(applicationContext)
         updateTriggers()
         startAutoTranscribeLoop()
     }
@@ -284,6 +289,11 @@ class AssistantService : AccessibilityService() {
 
         if (command.isBuiltIn && (command.trigger.endsWith("tr") || command.trigger.contains("tr ") || command.trigger.contains("tr:"))) {
             handleTranscriptionCommand(source, cleanText, command)
+            return
+        }
+
+        if (command.isBuiltIn && command.trigger.endsWith("rn")) {
+            handleLastFmCommand(source, cleanText, command)
             return
         }
 
@@ -707,6 +717,80 @@ class AssistantService : AccessibilityService() {
                 replaceText(source, originalText)
                 performHapticFeedback(HapticFeedbackConstants.REJECT)
                 showToast("Transcription failed: ${e.message}")
+            } finally {
+                withContext(NonCancellable + Dispatchers.Main) {
+                    if (currentJob === thisJob) {
+                        cancelWatchdog()
+                        scheduleProcessingReset()
+                    }
+                    recycleIfUnowned(source)
+                }
+            }
+        }
+    }
+
+    private fun handleLastFmCommand(source: AccessibilityNodeInfo, text: String, command: Command) {
+        if (!isProcessing.compareAndSet(false, true)) {
+            source.safeRecycle()
+            return
+        }
+        startWatchdog()
+        cancelPendingProcessingReset()
+        currentJob?.cancel()
+
+        currentJob = serviceScope.launch {
+            val thisJob = coroutineContext[Job]
+            var spinnerJob: Job? = null
+            val originalText = text
+            try {
+                if (!lastFmManager.isConfigured()) {
+                    withContext(Dispatchers.Main) {
+                        showToast("Last.fm username and API key must be configured in Settings")
+                        performHapticFeedback(HapticFeedbackConstants.REJECT)
+                    }
+                    return@launch
+                }
+
+                val spinner = startInlineSpinner(source, originalText)
+                spinnerJob = spinner
+
+                val username = lastFmManager.getUsername()
+                val apiKey = lastFmManager.getApiKey()
+                val shownName = lastFmManager.getShownName()
+                val verb = lastFmManager.getVerb()
+
+                val result = lastFmClient.getRecentTrack(username, apiKey)
+
+                spinner.cancelAndJoin()
+                spinnerJob = null
+
+                if (result.isSuccess) {
+                    val trackInfo = result.getOrThrow()
+                    val formatted = LastFmClient.formatOutput(shownName, verb, trackInfo)
+                    val replaced = replaceText(source, formatted)
+                    if (replaced) {
+                        lastOriginalText = originalText
+                        lastUndoSourceId = sourceId(source)
+                        performHapticFeedback(HapticFeedbackConstants.CONFIRM)
+                        statsManager.recordUsage(command.trigger)
+                    } else {
+                        replaceText(source, originalText)
+                        performHapticFeedback(HapticFeedbackConstants.REJECT)
+                        showToast(getString(R.string.toast_replace_failed))
+                    }
+                } else {
+                    replaceText(source, originalText)
+                    performHapticFeedback(HapticFeedbackConstants.REJECT)
+                    val errMsg = result.exceptionOrNull()?.message ?: "Last.fm fetch failed"
+                    showToast(errMsg)
+                }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                spinnerJob?.cancel()
+                replaceText(source, originalText)
+                performHapticFeedback(HapticFeedbackConstants.REJECT)
+                showToast("Last.fm error: ${e.message}")
             } finally {
                 withContext(NonCancellable + Dispatchers.Main) {
                     if (currentJob === thisJob) {

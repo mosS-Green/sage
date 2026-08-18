@@ -50,6 +50,14 @@ class CommandManagerTest {
     }
 
     @Test
+    fun findCommand_withRnTrigger_returnsRnCommand() {
+        val result = commandManager.findCommand("listening to music?rn")
+        assertNotNull(result)
+        assertEquals("?rn", result!!.trigger)
+        assertTrue(result.isBuiltIn)
+    }
+
+    @Test
     fun findCommand_noTrigger_returnsNull() {
         assertNull(commandManager.findCommand("just some plain text"))
     }
@@ -90,17 +98,17 @@ class CommandManagerTest {
     // --- getCommands ---
 
     @Test
-    fun getCommands_returnsSixteenBuiltInByDefault() {
+    fun getCommands_returnsSeventeenBuiltInByDefault() {
         val commands = commandManager.getCommands()
-        assertEquals(16, commands.size)
+        assertEquals(17, commands.size)
     }
 
     @Test
     fun getCommands_systemCommandsHaveIsBuiltInTrue() {
         val commands = commandManager.getCommands()
-        val systemTriggers = listOf("?undo", "?copy", "?cut", "?paste", "?replace", "?yt", "?tr")
+        val systemTriggers = listOf("?undo", "?copy", "?cut", "?paste", "?replace", "?yt", "?tr", "?rn")
         val systemCommands = commands.filter { it.trigger in systemTriggers }
-        assertEquals(7, systemCommands.size)
+        assertEquals(8, systemCommands.size)
         assertTrue(systemCommands.all { it.isBuiltIn })
     }
 
@@ -117,8 +125,8 @@ class CommandManagerTest {
     fun getCommands_afterAddingCustom_includesIt() {
         commandManager.saveCustomCommand(Command("?myCmd", "do something"))
         val commands = commandManager.getCommands()
-        assertEquals(17, commands.size)
-        assertTrue(commands.any { it.trigger == "?myCmd" })
+        assertEquals(18, commands.size)
+    }    assertTrue(commands.any { it.trigger == "?myCmd" })
     }
 
     @Test

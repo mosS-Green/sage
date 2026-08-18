@@ -36,4 +36,16 @@ object PrefKeys {
 
     /** JSON string array of WhatsApp chat names to monitor (empty = monitor all). */
     const val MONITORED_CHATS = "monitored_chats"
+
+    /** Last.fm account username. */
+    const val LASTFM_USERNAME = "lastfm_username"
+
+    /** Last.fm API Key. */
+    const val LASTFM_API_KEY = "lastfm_api_key"
+
+    /** Last.fm display name (shown-name in ?rn output). */
+    const val LASTFM_SHOWN_NAME = "lastfm_shown_name"
+
+    /** Last.fm verb in ?rn output (e.g. "listening", "vibing"). */
+    const val LASTFM_VERB = "lastfm_verb"
 }

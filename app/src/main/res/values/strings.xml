@@ -159,4 +159,11 @@
     <string name="monitored_chats_delete_desc">Remove chat</string>
     <string name="monitored_chats_back_desc">Back to Settings</string>
 
+    <!-- Last.fm (?rn) -->
+    <string name="lastfm_title">Last.fm (?rn)</string>
+    <string name="lastfm_username_placeholder">Last.fm Username</string>
+    <string name="lastfm_api_key_placeholder">Last.fm API Key</string>
+    <string name="lastfm_shown_name_placeholder">Shown Name (e.g. Leaf)</string>
+    <string name="lastfm_verb_placeholder">Verb (e.g. listening)</string>
+
 </resources>

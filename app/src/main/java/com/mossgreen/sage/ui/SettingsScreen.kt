@@ -28,11 +28,14 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import com.mossgreen.sage.manager.CommandManager
+import com.mossgreen.sage.manager.LastFmManager
+import com.mossgreen.sage.manager.MonitoredChatsManager
 import com.mossgreen.sage.model.GeminiModels
 import com.mossgreen.sage.model.GroqModels
 import com.mossgreen.sage.model.PrefKeys
-import com.mossgreen.sage.manager.MonitoredChatsManager
 import com.mossgreen.sage.model.ProviderType
 import com.mossgreen.sage.provider.EndpointValidator
 import com.mossgreen.sage.ui.components.ScreenTitle
@@ -46,6 +49,7 @@ fun SettingsScreen(
     commandManager: CommandManager,
     prefs: SharedPreferences,
     monitoredChatsManager: MonitoredChatsManager,
+    lastFmManager: LastFmManager,
     onNavigateToMonitoredChats: () -> Unit = {}
 ) {
     val context = LocalContext.current
@@ -74,6 +78,11 @@ fun SettingsScreen(
     var triggerPrefix by remember { mutableStateOf(commandManager.getTriggerPrefix()) }
     var prefixError by remember { mutableStateOf<String?>(null) }
     var temperature by remember { mutableStateOf(prefs.getFloat(PrefKeys.TEMPERATURE, 0.5f)) }
+
+    var lastFmUsername by rememberSaveable { mutableStateOf(lastFmManager.getUsername()) }
+    var lastFmApiKey by rememberSaveable { mutableStateOf(lastFmManager.getApiKey()) }
+    var lastFmShownName by rememberSaveable { mutableStateOf(lastFmManager.getShownName()) }
+    var lastFmVerb by rememberSaveable { mutableStateOf(lastFmManager.getVerb()) }
 
     val prefixErrorLength = stringResource(R.string.settings_prefix_error_length)
     val prefixErrorWhitespace = stringResource(R.string.settings_prefix_error_whitespace)
@@ -159,6 +168,7 @@ fun SettingsScreen(
         modifier = Modifier
             .fillMaxSize()
             .graphicsLayer { }
+            .verticalScroll(rememberScrollState())
             .padding(horizontal = 20.dp, vertical = 16.dp)
     ) {
         ScreenTitle(stringResource(R.string.settings_title))
@@ -444,7 +454,64 @@ fun SettingsScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Card 3: Voice Note Auto-Transcription
+        // Card 3: Last.fm (?rn)
+        SlateCard {
+            Text(
+                text = stringResource(R.string.lastfm_title),
+                fontSize = 13.sp,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            SlateTextField(
+                value = lastFmUsername,
+                onValueChange = {
+                    lastFmUsername = it
+                    lastFmManager.setUsername(it)
+                },
+                placeholder = { Text(stringResource(R.string.lastfm_username_placeholder)) },
+                singleLine = true
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            SlateTextField(
+                value = lastFmApiKey,
+                onValueChange = {
+                    lastFmApiKey = it
+                    lastFmManager.setApiKey(it)
+                },
+                placeholder = { Text(stringResource(R.string.lastfm_api_key_placeholder)) },
+                singleLine = true
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                SlateTextField(
+                    value = lastFmShownName,
+                    onValueChange = {
+                        lastFmShownName = it
+                        lastFmManager.setShownName(it)
+                    },
+                    placeholder = { Text(stringResource(R.string.lastfm_shown_name_placeholder)) },
+                    singleLine = true,
+                    modifier = Modifier.weight(1f)
+                )
+                SlateTextField(
+                    value = lastFmVerb,
+                    onValueChange = {
+                        lastFmVerb = it
+                        lastFmManager.setVerb(it)
+                    },
+                    placeholder = { Text(stringResource(R.string.lastfm_verb_placeholder)) },
+                    singleLine = true,
+                    modifier = Modifier.weight(1f)
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        // Card 4: Voice Note Auto-Transcription
         SlateCard {
             Row(
                 modifier = Modifier
@@ -488,7 +555,7 @@ fun SettingsScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Card 4: Backup
+        // Card 5: Backup
         SlateCard {
             Text(
                 text = stringResource(R.string.backup_desc),
@@ -535,17 +602,17 @@ fun SettingsScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Card 4: About
-        SlateCard(modifier = Modifier.weight(1f), fillHeight = true) {
+        // Card 6: About
+        SlateCard(modifier = Modifier.fillMaxWidth()) {
             Text(
                 text = stringResource(R.string.app_name) + " v" + BuildConfig.VERSION_NAME,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Medium,
                 color = MaterialTheme.colorScheme.onSurface
             )
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.height(8.dp))
             SlateDivider()
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = stringResource(R.string.settings_made_by),
                 fontSize = 13.sp,

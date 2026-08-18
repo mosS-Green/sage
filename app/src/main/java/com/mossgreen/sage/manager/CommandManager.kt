@@ -63,7 +63,8 @@ class CommandManager(context: Context) {
         "paste" to "Paste from clipboard.",
         "replace" to "Replace text with clipboard content.",
         "yt" to "Download YouTube video or audio from link in text.",
-        "tr" to "Transcribe WhatsApp voice note matching duration mm:ss (e.g. 01:23?tr or ?tr 01:23)."
+        "tr" to "Transcribe WhatsApp voice note matching duration mm:ss (e.g. 01:23?tr or ?tr 01:23).",
+        "rn" to "Share currently playing or recently played track on Last.fm."
     )
 
     // Default AI commands — seeded into custom commands on first run so users can edit/delete them
