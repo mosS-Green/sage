@@ -45,7 +45,7 @@ import com.mossgreen.sage.ui.components.SlateTextField
 fun SettingsScreen(
     commandManager: CommandManager,
     prefs: SharedPreferences,
-    monitoredChatsManager: MonitoredChatsManager = remember { MonitoredChatsManager(LocalContext.current) },
+    monitoredChatsManager: MonitoredChatsManager,
     onNavigateToMonitoredChats: () -> Unit = {}
 ) {
     val context = LocalContext.current
