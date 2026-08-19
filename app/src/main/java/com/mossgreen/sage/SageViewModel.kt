@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import com.mossgreen.sage.manager.CommandManager
 import com.mossgreen.sage.manager.LastFmManager
 import com.mossgreen.sage.manager.MonitoredChatsManager
+import com.mossgreen.sage.manager.ScreenCaptureManager
 import com.mossgreen.sage.manager.StatsManager
 
 class SageViewModel(application: Application) : AndroidViewModel(application) {
@@ -16,4 +17,5 @@ class SageViewModel(application: Application) : AndroidViewModel(application) {
     val statsManager = StatsManager(application)
     val monitoredChatsManager = MonitoredChatsManager(application)
     val lastFmManager = LastFmManager(application)
+    val screenCaptureManager = ScreenCaptureManager(application)
 }

@@ -33,6 +33,7 @@ import androidx.compose.foundation.verticalScroll
 import com.mossgreen.sage.manager.CommandManager
 import com.mossgreen.sage.manager.LastFmManager
 import com.mossgreen.sage.manager.MonitoredChatsManager
+import com.mossgreen.sage.manager.ScreenCaptureManager
 import com.mossgreen.sage.model.GeminiModels
 import com.mossgreen.sage.model.GroqModels
 import com.mossgreen.sage.model.PrefKeys
@@ -50,7 +51,9 @@ fun SettingsScreen(
     prefs: SharedPreferences,
     monitoredChatsManager: MonitoredChatsManager,
     lastFmManager: LastFmManager,
-    onNavigateToMonitoredChats: () -> Unit = {}
+    screenCaptureManager: ScreenCaptureManager,
+    onNavigateToMonitoredChats: () -> Unit = {},
+    onNavigateToScreenCaptures: () -> Unit = {}
 ) {
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
@@ -555,7 +558,50 @@ fun SettingsScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Card 5: Backup
+        // Card 5: SS Outputs (?ss)
+        SlateCard {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                        onNavigateToScreenCaptures()
+                    },
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(modifier = Modifier.weight(1f).padding(end = 12.dp)) {
+                    Text(
+                        text = stringResource(R.string.ss_title),
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    Spacer(modifier = Modifier.height(2.dp))
+                    val count = screenCaptureManager.getCaptureCount()
+                    val statusText = if (count == 0) {
+                        "No logs saved • Type ?ss in any app"
+                    } else {
+                        "$count captured screen log" + if (count > 1) "s" else ""
+                    }
+                    Text(
+                        text = statusText,
+                        fontSize = 13.sp,
+                        color = if (count > 0) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+                Text(
+                    text = "↗",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        // Card 6: Backup
         SlateCard {
             Text(
                 text = stringResource(R.string.backup_desc),

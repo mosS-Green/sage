@@ -166,4 +166,19 @@
     <string name="lastfm_shown_name_placeholder">Shown Name (e.g. Leaf)</string>
     <string name="lastfm_verb_placeholder">Verb (e.g. listening)</string>
 
+    <!-- SS Outputs (?ss) -->
+    <string name="ss_title">SS Outputs</string>
+    <string name="ss_desc">Complete accessibility screen context logs captured with ?ss</string>
+    <string name="ss_empty">No screen contexts captured yet.\nType ?ss in any app to capture the full accessibility tree.</string>
+    <string name="ss_clear_all">Clear All</string>
+    <string name="ss_clear_confirm_title">Clear all captures?</string>
+    <string name="ss_clear_confirm_msg">This will permanently delete all saved screen context logs.</string>
+    <string name="ss_copy_all">Copy All</string>
+    <string name="ss_copy_json">Copy JSON</string>
+    <string name="ss_copied">Screen context copied to clipboard</string>
+    <string name="ss_json_copied">JSON context copied to clipboard</string>
+    <string name="ss_delete_desc">Delete capture</string>
+    <string name="ss_back_desc">Back to Settings</string>
+    <string name="toast_ss_captured">Screen context saved to SS Outputs (%1$d nodes, %2$d windows)</string>
+
 </resources>

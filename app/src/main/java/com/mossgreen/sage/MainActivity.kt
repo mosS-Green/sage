@@ -34,6 +34,7 @@ import com.mossgreen.sage.ui.CommandsScreen
 import com.mossgreen.sage.ui.DashboardScreen
 import com.mossgreen.sage.ui.KeysScreen
 import com.mossgreen.sage.ui.MonitoredChatsScreen
+import com.mossgreen.sage.ui.ScreenCapturesScreen
 import com.mossgreen.sage.ui.SettingsScreen
 import com.mossgreen.sage.ui.theme.SageTheme
 
@@ -62,6 +63,7 @@ fun SageMainScreen(vm: SageViewModel = viewModel()) {
     val haptic = LocalHapticFeedback.current
     var selectedTab by rememberSaveable { mutableStateOf(Tab.Dashboard) }
     var showMonitoredChats by rememberSaveable { mutableStateOf(false) }
+    var showScreenCaptures by rememberSaveable { mutableStateOf(false) }
 
     // Request notification permission on first launch (Android 13+)
     val permissionLauncher = rememberLauncherForActivityResult(
@@ -128,13 +130,20 @@ fun SageMainScreen(vm: SageViewModel = viewModel()) {
                                     manager = vm.monitoredChatsManager,
                                     onBack = { showMonitoredChats = false }
                                 )
+                            } else if (showScreenCaptures) {
+                                ScreenCapturesScreen(
+                                    manager = vm.screenCaptureManager,
+                                    onBack = { showScreenCaptures = false }
+                                )
                             } else {
                                 SettingsScreen(
                                     commandManager = vm.commandManager,
                                     prefs = vm.prefs,
                                     monitoredChatsManager = vm.monitoredChatsManager,
                                     lastFmManager = vm.lastFmManager,
-                                    onNavigateToMonitoredChats = { showMonitoredChats = true }
+                                    screenCaptureManager = vm.screenCaptureManager,
+                                    onNavigateToMonitoredChats = { showMonitoredChats = true },
+                                    onNavigateToScreenCaptures = { showScreenCaptures = true }
                                 )
                             }
                         }

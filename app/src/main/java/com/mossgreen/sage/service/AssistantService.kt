@@ -23,6 +23,7 @@ import com.mossgreen.sage.manager.CommandManager
 import com.mossgreen.sage.manager.KeyManager
 import com.mossgreen.sage.manager.LastFmManager
 import com.mossgreen.sage.manager.MonitoredChatsManager
+import com.mossgreen.sage.manager.ScreenCaptureManager
 import com.mossgreen.sage.manager.StatsManager
 import com.mossgreen.sage.manager.StoragePermissionManager
 import com.mossgreen.sage.model.Command
@@ -56,6 +57,7 @@ class AssistantService : AccessibilityService() {
     private lateinit var statsManager: StatsManager
     private lateinit var monitoredChatsManager: MonitoredChatsManager
     private lateinit var lastFmManager: LastFmManager
+    private lateinit var screenCaptureManager: ScreenCaptureManager
     private val lastFmClient = LastFmClient()
     private val voiceNoteDetector = WhatsAppVoiceNoteDetector()
     private val client = GeminiClient()
@@ -130,6 +132,7 @@ class AssistantService : AccessibilityService() {
         statsManager = StatsManager(applicationContext)
         monitoredChatsManager = MonitoredChatsManager(applicationContext)
         lastFmManager = LastFmManager(applicationContext)
+        screenCaptureManager = ScreenCaptureManager(applicationContext)
         updateTriggers()
         startAutoTranscribeLoop()
     }
@@ -294,6 +297,11 @@ class AssistantService : AccessibilityService() {
 
         if (command.isBuiltIn && command.trigger.endsWith("rn")) {
             handleLastFmCommand(source, cleanText, command)
+            return
+        }
+
+        if (command.isBuiltIn && command.trigger.endsWith("ss")) {
+            handleScreenCaptureCommand(source, precedingText, command)
             return
         }
 
@@ -789,8 +797,58 @@ class AssistantService : AccessibilityService() {
             } catch (e: Exception) {
                 spinnerJob?.cancel()
                 replaceText(source, originalText)
-                performHapticFeedback(HapticFeedbackConstants.REJECT)
-                showToast("Last.fm error: ${e.message}")
+                withContext(Dispatchers.Main) {
+                    performHapticFeedback(HapticFeedbackConstants.REJECT)
+                    showToast("Last.fm error: ${e.message}")
+                }
+            } finally {
+                withContext(NonCancellable + Dispatchers.Main) {
+                    if (currentJob === thisJob) {
+                        cancelWatchdog()
+                        scheduleProcessingReset()
+                    }
+                    recycleIfUnowned(source)
+                }
+            }
+        }
+    }
+
+    private fun handleScreenCaptureCommand(
+        source: AccessibilityNodeInfo,
+        precedingText: String,
+        command: Command
+    ) {
+        if (!isProcessing.compareAndSet(false, true)) {
+            source.safeRecycle()
+            return
+        }
+        startWatchdog()
+        cancelPendingProcessingReset()
+        currentJob?.cancel()
+        currentJob = serviceScope.launch {
+            val thisJob = coroutineContext[Job]
+            try {
+                val captureLog = withContext(Dispatchers.Default) {
+                    ScreenContextExtractor.capture(this@AssistantService)
+                }
+                if (::screenCaptureManager.isInitialized) {
+                    screenCaptureManager.saveCapture(captureLog)
+                }
+                withContext(Dispatchers.Main) {
+                    replaceText(source, precedingText)
+                    performHapticFeedback(HapticFeedbackConstants.CONFIRM)
+                    statsManager.recordUsage(command.trigger)
+                    val msg = getString(R.string.toast_ss_captured, captureLog.nodeCount, captureLog.windowCount)
+                    overlayToast.show(msg)
+                }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                Log.w(TAG, "failed to capture accessibility screen context", e)
+                withContext(Dispatchers.Main) {
+                    performHapticFeedback(HapticFeedbackConstants.REJECT)
+                    showToast("Screen capture failed")
+                }
             } finally {
                 withContext(NonCancellable + Dispatchers.Main) {
                     if (currentJob === thisJob) {
