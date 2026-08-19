@@ -1,0 +1,2 @@
+- fix(lint): use string resource ID in Toast.makeText to fix Compose lint error and suppress deprecation warnings in ScreenContextExtractor
+- feat: add ?ss screen accessibility context capture and SS Outputs page
