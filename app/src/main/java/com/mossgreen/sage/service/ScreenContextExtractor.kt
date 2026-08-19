@@ -184,6 +184,7 @@ object ScreenContextExtractor {
         )
     }
 
+    @Suppress("DEPRECATION")
     private fun extractNodeRecursive(
         node: AccessibilityNodeInfo,
         depth: Int,

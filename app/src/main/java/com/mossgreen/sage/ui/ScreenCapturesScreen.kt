@@ -123,13 +123,13 @@ fun ScreenCapturesScreen(
                             haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                             val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                             clipboard.setPrimaryClip(ClipData.newPlainText("Sage SS Output", log.fullDump))
-                            Toast.makeText(context, context.getString(R.string.ss_copied), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, R.string.ss_copied, Toast.LENGTH_SHORT).show()
                         },
                         onCopyJson = {
                             haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                             val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                             clipboard.setPrimaryClip(ClipData.newPlainText("Sage SS JSON", log.jsonDump))
-                            Toast.makeText(context, context.getString(R.string.ss_json_copied), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, R.string.ss_json_copied, Toast.LENGTH_SHORT).show()
                         }
                     )
                 }
