@@ -1,0 +1,3 @@
+- build: add Maven Central mirrors to prevent HTTP 429 rate limits in CI
+- fix: add missing java.io.File import in AssistantService
+- feat: add Facebook support & share notification to ?yt, harden API key storage, and make Gemini model editable
