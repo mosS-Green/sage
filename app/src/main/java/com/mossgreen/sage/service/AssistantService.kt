@@ -33,6 +33,7 @@ import com.mossgreen.sage.ui.processtext.ProcessTextReplacementBridge
 import com.mossgreen.sage.ui.processtext.resolveProcessTextEdit
 import com.mossgreen.sage.R
 import com.mossgreen.sage.SageApp
+import java.io.File
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
