@@ -73,7 +73,8 @@ object GeminiConfig : ProviderConfig {
     override val transport = Transport.GEMINI_NATIVE
     override val modelPrefKey = PrefKeys.GEMINI_MODEL
     override val defaultModel = GeminiModels.DEFAULT
-    override fun sanitizeModel(stored: String?): String = GeminiModels.sanitize(stored)
+    override fun sanitizeModel(stored: String?): String =
+        stored?.trim()?.takeIf { it.isNotEmpty() } ?: GeminiModels.DEFAULT
     override fun resolveEndpoint(customEndpoint: String): String = ""
     override fun thinkingLevel(model: String): String? = GeminiModels.thinkingLevel(model)
 }

@@ -28,6 +28,7 @@ class SageApp : Application() {
 
     companion object {
         const val CHANNEL_TRANSCRIPTION = "sage_transcription"
+        const val CHANNEL_DOWNLOADS = "sage_downloads"
     }
 
     override fun onCreate() {
@@ -45,15 +46,23 @@ class SageApp : Application() {
 
     private fun createNotificationChannels() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
+            val nm = getSystemService(NotificationManager::class.java)
+            val transcriptionChannel = NotificationChannel(
                 CHANNEL_TRANSCRIPTION,
                 "Voice Note Transcriptions",
                 NotificationManager.IMPORTANCE_HIGH
             ).apply {
                 description = "Transcriptions of WhatsApp voice notes"
             }
-            val nm = getSystemService(NotificationManager::class.java)
-            nm.createNotificationChannel(channel)
+            val downloadsChannel = NotificationChannel(
+                CHANNEL_DOWNLOADS,
+                "Media Downloads",
+                NotificationManager.IMPORTANCE_HIGH
+            ).apply {
+                description = "Notifications for downloaded YouTube and Facebook media"
+            }
+            nm.createNotificationChannel(transcriptionChannel)
+            nm.createNotificationChannel(downloadsChannel)
         }
     }
 

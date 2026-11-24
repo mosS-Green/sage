@@ -3,6 +3,7 @@ package com.mossgreen.sage.service
 import com.mossgreen.sage.manager.StoragePermissionManager
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONTokener
 import org.schabi.newpipe.extractor.NewPipe
 import org.schabi.newpipe.extractor.ServiceList
 import org.schabi.newpipe.extractor.downloader.Downloader
@@ -11,6 +12,7 @@ import org.schabi.newpipe.extractor.downloader.Response
 import org.schabi.newpipe.extractor.services.youtube.extractors.YoutubeStreamExtractor
 import java.io.File
 import java.io.FileOutputStream
+import java.net.URLDecoder
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.regex.Pattern
@@ -25,6 +27,9 @@ object YouTubeDownloader {
             .followRedirects(true)
             .build()
     }
+
+    private const val DESKTOP_USER_AGENT =
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 
     private class OkHttpDownloader(private val client: OkHttpClient) : Downloader() {
         override fun execute(request: Request): Response {
@@ -73,13 +78,27 @@ object YouTubeDownloader {
         Pattern.CASE_INSENSITIVE
     )
 
+    private val FB_URL_PATTERN = Pattern.compile(
+        "(https?://)?((www\\.|m\\.|mbasic\\.|web\\.)?facebook\\.com/(watch/?\\?v=|reel/|share/[vr]/|[^\\s/]+/videos/|video\\.php\\?v=)|fb\\.watch/)[^\\s]+",
+        Pattern.CASE_INSENSITIVE
+    )
+
     fun extractYouTubeUrl(text: String): String? {
         val matcher = YT_URL_PATTERN.matcher(text)
-        return if (matcher.find()) {
-            matcher.group(0)
-        } else {
-            null
-        }
+        return if (matcher.find()) matcher.group(0) else null
+    }
+
+    fun extractFacebookUrl(text: String): String? {
+        val matcher = FB_URL_PATTERN.matcher(text)
+        return if (matcher.find()) matcher.group(0) else null
+    }
+
+    fun extractVideoUrl(text: String): String? {
+        return extractYouTubeUrl(text) ?: extractFacebookUrl(text)
+    }
+
+    fun isFacebookUrl(url: String): Boolean {
+        return FB_URL_PATTERN.matcher(url).find()
     }
 
     fun isAudioOnlyUrl(url: String): Boolean {
@@ -87,10 +106,18 @@ object YouTubeDownloader {
     }
 
     /**
-     * Downloads YouTube video or audio directly using NewPipeExtractor and saves to Downloads/sage/.
-     * Returns Result with downloaded filename or error.
+     * Downloads YouTube or public Facebook video/audio and saves to Downloads/sage/.
+     * Returns Result with downloaded File or error.
      */
-    fun download(ytUrl: String): Result<String> {
+    fun download(url: String): Result<File> {
+        return if (isFacebookUrl(url)) {
+            downloadFacebook(url)
+        } else {
+            downloadYouTube(url)
+        }
+    }
+
+    private fun downloadYouTube(ytUrl: String): Result<File> {
         return try {
             ensureInitialized()
 
@@ -132,14 +159,137 @@ object YouTubeDownloader {
             val outputFile = File(sageDir, fileName)
 
             downloadFile(directStreamUrl, outputFile)
-            Result.success(outputFile.name)
+            Result.success(outputFile)
         } catch (e: Exception) {
             Result.failure(e)
         }
     }
 
+    private fun downloadFacebook(fbUrl: String): Result<File> {
+        return try {
+            val sageDir = StoragePermissionManager.getSageDownloadDir()
+            var cleanUrl = fbUrl.trim()
+            if (!cleanUrl.startsWith("http://") && !cleanUrl.startsWith("https://")) {
+                cleanUrl = "https://$cleanUrl"
+            }
+
+            val html = fetchFacebookHtml(cleanUrl)
+            var streamUrl = extractFacebookStreamUrl(html)
+
+            // Fallback to mbasic.facebook.com if www didn't expose the stream directly
+            if (streamUrl == null && !cleanUrl.contains("mbasic.facebook.com", ignoreCase = true)) {
+                val mbasicUrl = cleanUrl
+                    .replace(Regex("://(www\\.|m\\.|web\\.)?facebook\\.com", RegexOption.IGNORE_CASE), "://mbasic.facebook.com")
+                if (mbasicUrl != cleanUrl) {
+                    val mbasicHtml = try { fetchFacebookHtml(mbasicUrl) } catch (_: Exception) { "" }
+                    if (mbasicHtml.isNotEmpty()) {
+                        streamUrl = extractFacebookStreamUrl(mbasicHtml)
+                    }
+                }
+            }
+
+            if (streamUrl.isNullOrBlank()) {
+                return Result.failure(Exception("Could not extract public Facebook video (may be private or unavailable)"))
+            }
+
+            val title = extractFacebookTitle(html)
+                .replace(Regex("[^a-zA-Z0-9._-]"), "_")
+                .trim('_')
+                .take(40)
+                .ifBlank { "fb" }
+
+            val fileName = "${title}_${System.currentTimeMillis()}.mp4"
+            val outputFile = File(sageDir, fileName)
+
+            downloadFile(streamUrl, outputFile)
+            Result.success(outputFile)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    private fun fetchFacebookHtml(url: String): String {
+        val request = okhttp3.Request.Builder()
+            .url(url)
+            .header("User-Agent", DESKTOP_USER_AGENT)
+            .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8")
+            .header("Accept-Language", "en-US,en;q=0.9")
+            .header("Sec-Fetch-Dest", "document")
+            .header("Sec-Fetch-Mode", "navigate")
+            .header("Sec-Fetch-Site", "none")
+            .build()
+        val response = httpClient.newCall(request).execute()
+        if (!response.isSuccessful) {
+            throw Exception("Facebook returned HTTP ${response.code}")
+        }
+        return response.body?.string() ?: ""
+    }
+
+    internal fun extractFacebookStreamUrl(html: String): String? {
+        if (html.isBlank()) return null
+
+        val jsonKeys = listOf(
+            "browser_native_hd_url",
+            "playable_url_quality_hd",
+            "hd_src_no_ratelimit",
+            "hd_src",
+            "browser_native_sd_url",
+            "playable_url",
+            "sd_src_no_ratelimit",
+            "sd_src"
+        )
+        for (key in jsonKeys) {
+            val regex = Regex("\"$key\"\\s*:\\s*\"([^\"]+)\"")
+            val match = regex.find(html)
+            if (match != null) {
+                val decoded = unescapeJsonString(match.groupValues[1])
+                if (decoded.startsWith("http")) return decoded
+            }
+        }
+
+        // OpenGraph og:video fallback
+        val ogRegex = Regex("""<meta[^>]+property=["']og:video(?::url)?["'][^>]+content=["']([^"']+)["']""", RegexOption.IGNORE_CASE)
+        ogRegex.find(html)?.let { match ->
+            val decoded = match.groupValues[1].replace("&amp;", "&")
+            if (decoded.startsWith("http")) return decoded
+        }
+
+        // mbasic video_redirect fallback
+        val redirectRegex = Regex("""/video_redirect/\?src=([^"&]+)""")
+        redirectRegex.find(html)?.let { match ->
+            val decoded = try {
+                URLDecoder.decode(match.groupValues[1], "UTF-8")
+            } catch (_: Exception) {
+                match.groupValues[1]
+            }
+            if (decoded.startsWith("http")) return decoded
+        }
+
+        return null
+    }
+
+    private fun extractFacebookTitle(html: String): String {
+        val ogTitle = Regex("""<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']""", RegexOption.IGNORE_CASE)
+            .find(html)?.groupValues?.get(1)
+        if (!ogTitle.isNullOrBlank()) return ogTitle
+        val titleTag = Regex("""<title[^>]*>([^<]+)</title>""", RegexOption.IGNORE_CASE)
+            .find(html)?.groupValues?.get(1)
+        return titleTag?.replace(" | Facebook", "")?.trim() ?: ""
+    }
+
+    private fun unescapeJsonString(raw: String): String {
+        return try {
+            (JSONTokener("\"$raw\"").nextValue() as? String) ?: raw.replace("\\/", "/")
+        } catch (_: Exception) {
+            raw.replace("\\/", "/").replace("\\u0026", "&").replace("&amp;", "&")
+        }
+    }
+
     private fun downloadFile(downloadUrl: String, outputFile: File) {
-        val request = okhttp3.Request.Builder().url(downloadUrl).build()
+        val request = okhttp3.Request.Builder()
+            .url(downloadUrl)
+            .header("User-Agent", DESKTOP_USER_AGENT)
+            .build()
         val response = httpClient.newCall(request).execute()
         if (!response.isSuccessful) {
             throw Exception("Download stream failed HTTP ${response.code}")

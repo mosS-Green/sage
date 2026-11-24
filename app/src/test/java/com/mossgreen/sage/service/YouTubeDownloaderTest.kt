@@ -46,4 +46,35 @@ class YouTubeDownloaderTest {
         assertFalse(YouTubeDownloader.isAudioOnlyUrl("https://www.youtube.com/watch?v=12345"))
         assertFalse(YouTubeDownloader.isAudioOnlyUrl("https://youtu.be/12345"))
     }
+
+    @Test
+    fun extractVideoUrl_facebookUrls() {
+        assertEquals(
+            "https://www.facebook.com/watch?v=123456789",
+            YouTubeDownloader.extractVideoUrl("Check this https://www.facebook.com/watch?v=123456789 ?yt")
+        )
+        assertEquals(
+            "https://www.facebook.com/reel/987654321",
+            YouTubeDownloader.extractVideoUrl("https://www.facebook.com/reel/987654321 ?yt")
+        )
+        assertEquals(
+            "https://fb.watch/abcDEF123/",
+            YouTubeDownloader.extractVideoUrl("Watch https://fb.watch/abcDEF123/ ?yt")
+        )
+        assertEquals(
+            "https://www.facebook.com/share/v/123abc/",
+            YouTubeDownloader.extractVideoUrl("https://www.facebook.com/share/v/123abc/ ?yt")
+        )
+    }
+
+    @Test
+    fun extractFacebookStreamUrl_prefersHdAndUnescapes() {
+        val html = """
+            {"playable_url":"https:\/\/video.xx.fbcdn.net\/sd.mp4?a=1\u0026b=2","browser_native_hd_url":"https:\/\/video.xx.fbcdn.net\/hd.mp4?a=1\u0026b=2"}
+        """.trimIndent()
+        assertEquals(
+            "https://video.xx.fbcdn.net/hd.mp4?a=1&b=2",
+            YouTubeDownloader.extractFacebookStreamUrl(html)
+        )
+    }
 }

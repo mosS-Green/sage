@@ -588,10 +588,10 @@ class AssistantService : AccessibilityService() {
             var spinnerJob: Job? = null
             val originalText = text
             try {
-                val ytUrl = YouTubeDownloader.extractYouTubeUrl(text)
-                if (ytUrl == null) {
+                val videoUrl = YouTubeDownloader.extractVideoUrl(text)
+                if (videoUrl == null) {
                     withContext(Dispatchers.Main) {
-                        showToast("No YouTube link found in text")
+                        showToast("No YouTube or Facebook link found in text")
                         performHapticFeedback(HapticFeedbackConstants.REJECT)
                     }
                     return@launch
@@ -601,15 +601,16 @@ class AssistantService : AccessibilityService() {
                 spinnerJob = spinner
 
                 val downloadResult = withContext(Dispatchers.IO) {
-                    YouTubeDownloader.download(ytUrl)
+                    YouTubeDownloader.download(videoUrl)
                 }
 
                 spinner.cancelAndJoin()
                 spinnerJob = null
 
                 if (downloadResult.isSuccess) {
-                    val fileName = downloadResult.getOrThrow()
-                    val replacement = "Downloaded: $fileName"
+                    val file = downloadResult.getOrThrow()
+                    postDownloadNotification(file)
+                    val replacement = "Downloaded: ${file.name}"
                     val replaced = replaceText(source, replacement)
                     if (replaced) {
                         lastOriginalText = originalText
@@ -1422,6 +1423,62 @@ class AssistantService : AccessibilityService() {
             .build()
 
         nm.notify(notificationId, notification)
+    }
+
+    private fun postDownloadNotification(file: File) {
+        try {
+            val nm = getSystemService(Context.NOTIFICATION_SERVICE) as android.app.NotificationManager
+            val notificationId = file.absolutePath.hashCode()
+            val uri = androidx.core.content.FileProvider.getUriForFile(
+                this,
+                "$packageName.fileprovider",
+                file
+            )
+            val mimeType = when (file.extension.lowercase()) {
+                "mp4" -> "video/mp4"
+                "webm" -> "video/webm"
+                "m4a" -> "audio/mp4"
+                "opus" -> "audio/opus"
+                "mp3" -> "audio/mpeg"
+                else -> "*/*"
+            }
+            val shareIntent = android.content.Intent(android.content.Intent.ACTION_SEND).apply {
+                type = mimeType
+                putExtra(android.content.Intent.EXTRA_STREAM, uri)
+                addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
+            val chooserIntent = android.content.Intent.createChooser(shareIntent, "Share ${file.name}").apply {
+                addFlags(
+                    android.content.Intent.FLAG_ACTIVITY_NEW_TASK or
+                        android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+            }
+            val pendingIntent = android.app.PendingIntent.getActivity(
+                this,
+                notificationId,
+                chooserIntent,
+                android.app.PendingIntent.FLAG_UPDATE_CURRENT or android.app.PendingIntent.FLAG_IMMUTABLE
+            )
+
+            val builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                android.app.Notification.Builder(this, SageApp.CHANNEL_DOWNLOADS)
+            } else {
+                @Suppress("DEPRECATION")
+                android.app.Notification.Builder(this)
+            }
+
+            val notification = builder
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle("Download Complete")
+                .setContentText("Tap to share ${file.name}")
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+                .build()
+
+            nm.notify(notificationId, notification)
+        } catch (e: Exception) {
+            Log.w(TAG, "Failed to post download notification", e)
+        }
     }
 
     override fun onInterrupt() {

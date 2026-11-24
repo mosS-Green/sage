@@ -33,7 +33,8 @@ internal interface KeyCipher {
 internal class AndroidKeystoreCipher : KeyCipher {
 
     private companion object {
-        const val KEY_ALIAS = "typeslate_secure_key"
+        const val KEY_ALIAS_LEGACY = "typeslate_secure_key"
+        const val KEY_ALIAS_V2 = "sage_secure_key_v2"
         const val ANDROID_KEYSTORE = "AndroidKeyStore"
         const val TRANSFORMATION = "AES/GCM/NoPadding"
         const val GCM_TAG_BITS = 128
@@ -47,7 +48,9 @@ internal class AndroidKeystoreCipher : KeyCipher {
 
     /** Resolved once: this used to reload the whole KeyStore on every encrypt and decrypt. */
     @Volatile
-    private var cachedSecretKey: SecretKey? = null
+    private var cachedSecretKeyV2: SecretKey? = null
+    @Volatile
+    private var cachedSecretKeyLegacy: SecretKey? = null
 
     override var available: Boolean = true
         private set
@@ -56,25 +59,16 @@ internal class AndroidKeystoreCipher : KeyCipher {
         try {
             val keyStore = KeyStore.getInstance(ANDROID_KEYSTORE)
             keyStore.load(null)
-            if (!keyStore.containsAlias(KEY_ALIAS)) {
+            if (!keyStore.containsAlias(KEY_ALIAS_V2)) {
                 val keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, ANDROID_KEYSTORE)
                 keyGenerator.init(
                     KeyGenParameterSpec.Builder(
-                        KEY_ALIAS,
+                        KEY_ALIAS_V2,
                         KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
                     )
                         .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
                         .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
                         .setKeySize(256)
-                        .apply {
-                            // Keys are only ever needed while the user is actively typing, so
-                            // requiring an unlocked device costs nothing and stops the stored
-                            // API keys from being decryptable on a locked device. Applies to
-                            // newly generated keys only; existing installs keep theirs.
-                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
-                                setUnlockedDeviceRequired(true)
-                            }
-                        }
                         .build()
                 )
                 keyGenerator.generateKey()
@@ -85,20 +79,24 @@ internal class AndroidKeystoreCipher : KeyCipher {
         }
     }
 
-    private fun secretKey(): SecretKey? {
-        cachedSecretKey?.let { return it }
+    private fun secretKey(alias: String): SecretKey? {
+        if (alias == KEY_ALIAS_V2) cachedSecretKeyV2?.let { return it }
+        if (alias == KEY_ALIAS_LEGACY) cachedSecretKeyLegacy?.let { return it }
         return try {
             val keyStore = KeyStore.getInstance(ANDROID_KEYSTORE)
             keyStore.load(null)
-            (keyStore.getKey(KEY_ALIAS, null) as? SecretKey)?.also { cachedSecretKey = it }
+            (keyStore.getKey(alias, null) as? SecretKey)?.also {
+                if (alias == KEY_ALIAS_V2) cachedSecretKeyV2 = it
+                else cachedSecretKeyLegacy = it
+            }
         } catch (e: Exception) {
-            android.util.Log.e("KeyCipher", "Failed to get secret key", e)
+            android.util.Log.e("KeyCipher", "Failed to get secret key ($alias)", e)
             null
         }
     }
 
     override fun encrypt(plainText: String): String {
-        val key = secretKey() ?: throw IllegalStateException("Keystore unavailable")
+        val key = secretKey(KEY_ALIAS_V2) ?: throw IllegalStateException("Keystore unavailable")
         val cipher = Cipher.getInstance(TRANSFORMATION)
         cipher.init(Cipher.ENCRYPT_MODE, key)
         val iv = Base64.encodeToString(cipher.iv, Base64.NO_WRAP)
@@ -110,10 +108,15 @@ internal class AndroidKeystoreCipher : KeyCipher {
     override fun decrypt(encrypted: String): String? {
         val parts = encrypted.split(IV_SEPARATOR)
         if (parts.size != 2) return null
+        val iv = try { Base64.decode(parts[0], Base64.NO_WRAP) } catch (_: Exception) { return null }
+        val body = try { Base64.decode(parts[1], Base64.NO_WRAP) } catch (_: Exception) { return null }
+        return decryptWithAlias(KEY_ALIAS_V2, iv, body)
+            ?: decryptWithAlias(KEY_ALIAS_LEGACY, iv, body)
+    }
+
+    private fun decryptWithAlias(alias: String, iv: ByteArray, body: ByteArray): String? {
         return try {
-            val iv = Base64.decode(parts[0], Base64.NO_WRAP)
-            val body = Base64.decode(parts[1], Base64.NO_WRAP)
-            val key = secretKey() ?: return null
+            val key = secretKey(alias) ?: return null
             val cipher = Cipher.getInstance(TRANSFORMATION)
             cipher.init(Cipher.DECRYPT_MODE, key, GCMParameterSpec(GCM_TAG_BITS, iv))
             String(cipher.doFinal(body), StandardCharsets.UTF_8)

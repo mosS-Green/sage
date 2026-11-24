@@ -132,6 +132,15 @@ class KeyManagerTest {
     }
 
     @Test
+    fun transientDecryptFailure_recoversFromBackupAndDoesNotPoisonCache() {
+        keyManager.addKey("persistent-key")
+        // Simulate KeyStore invalidation / wipe of primary blob while backup remains intact
+        prefs().edit().putString("keys_array", "corrupted]blob").commit()
+        val recoveredManager = freshManager()
+        assertEquals(listOf("persistent-key"), recoveredManager.getKeys())
+    }
+
+    @Test
     fun saveFailure_isReportedAndDoesNotCacheAStaleList() {
         keyManager.addKey("k1")
         cipher.encryptFailures = 1

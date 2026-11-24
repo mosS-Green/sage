@@ -66,9 +66,13 @@ fun SettingsScreen(
     var providerType by remember { mutableStateOf(prefs.getString(PrefKeys.PROVIDER_TYPE, ProviderType.GEMINI) ?: ProviderType.GEMINI) }
     var providerExpanded by remember { mutableStateOf(false) }
 
-    var selectedModel by remember { mutableStateOf(GeminiModels.sanitize(prefs.getString(PrefKeys.GEMINI_MODEL, GeminiModels.DEFAULT))) }
-    var modelExpanded by remember { mutableStateOf(false) }
-    val geminiModels = GeminiModels.OPTIONS
+    var selectedModel by rememberSaveable {
+        mutableStateOf(
+            (prefs.getString(PrefKeys.GEMINI_MODEL, GeminiModels.DEFAULT) ?: GeminiModels.DEFAULT)
+                .trim()
+                .ifEmpty { GeminiModels.DEFAULT }
+        )
+    }
 
     var groqModel by remember { mutableStateOf(GroqModels.sanitize(prefs.getString(PrefKeys.GROQ_MODEL, GroqModels.DEFAULT))) }
     var groqModelExpanded by remember { mutableStateOf(false) }
@@ -113,6 +117,11 @@ fun SettingsScreen(
             }
             if (customModel != (prefs.getString(PrefKeys.CUSTOM_MODEL, "") ?: "")) {
                 editor.putString(PrefKeys.CUSTOM_MODEL, customModel)
+                needsWrite = true
+            }
+            val trimmedGemini = selectedModel.trim().ifEmpty { GeminiModels.DEFAULT }
+            if (trimmedGemini != (prefs.getString(PrefKeys.GEMINI_MODEL, GeminiModels.DEFAULT) ?: GeminiModels.DEFAULT)) {
+                editor.putString(PrefKeys.GEMINI_MODEL, trimmedGemini)
                 needsWrite = true
             }
             if (needsWrite) editor.apply()
@@ -242,36 +251,23 @@ fun SettingsScreen(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Spacer(modifier = Modifier.height(8.dp))
-                ExposedDropdownMenuBox(
-                    expanded = modelExpanded,
-                    onExpandedChange = { modelExpanded = !modelExpanded }
-                ) {
-                    SlateTextField(
-                        value = GeminiModels.label(selectedModel),
-                        onValueChange = {},
-                        readOnly = true,
-                        
-                        modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
-                    )
-                    ExposedDropdownMenu(
-                        containerColor = MaterialTheme.colorScheme.surface,
-                        shape = RoundedCornerShape(10.dp),
-                        expanded = modelExpanded,
-                        onDismissRequest = { modelExpanded = false }
-                    ) {
-                        geminiModels.forEach { (id, label) ->
-                            DropdownMenuItem(
-                                text = { Text(label) },
-                                onClick = {
-                                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                                    selectedModel = id
-                                    prefs.edit().putString(PrefKeys.GEMINI_MODEL, id).remove(PrefKeys.STRUCTURED_OUTPUT_DISABLED_AT).apply()
-                                    modelExpanded = false
-                                }
-                            )
+                SlateTextField(
+                    value = selectedModel,
+                    onValueChange = {
+                        selectedModel = it
+                        saveModelJob?.cancel()
+                        saveModelJob = scope.launch {
+                            delay(500)
+                            val toSave = it.trim().ifEmpty { GeminiModels.DEFAULT }
+                            prefs.edit()
+                                .putString(PrefKeys.GEMINI_MODEL, toSave)
+                                .remove(PrefKeys.STRUCTURED_OUTPUT_DISABLED_AT)
+                                .apply()
                         }
-                    }
-                }
+                    },
+                    placeholder = { Text(GeminiModels.DEFAULT) },
+                    singleLine = true
+                )
             } else if (providerType == ProviderType.GROQ) {
                 Text(
                     text = stringResource(R.string.settings_model_title),
